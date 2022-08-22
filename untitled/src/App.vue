@@ -48,7 +48,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <span >Money : {{money}}</span>
+  <div class="header">
+    <span >Money : {{money}}</span>
+  </div>
+  <div class="block_body">
+    <div class="block_roulette">
+      <div class="roulette">
+
+      </div>
+      <div class="play">
+
+      </div>
+    </div>
+    <div class="block_mise">
+      <div class="block_mise_1">
+
+      </div>
+    </div>
+  </div>
+
   <span >Roulette : {{roulette}}</span>
   <button @click="RedIncrement">red is: {{ red }}</button>
   <button @click="PlayRoulette">Play</button>
@@ -61,6 +79,58 @@ onMounted(() => {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.header
+{
+    width: 100%;
+    height: 10vh;
+    border: black 1px solid;
+}
+.block_body
+{
+  width: 100%;
+
+  display: flex;
+  border: black 1px solid;
+}
+.block_roulette
+{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px;
+  border: black 1px solid;
+  flex : 1;
+  height: 50vh;
+  align-items: center;
+}
+.block_mise
+{
+  display: flex;
+  padding: 10px;
+  margin: 10px;
+  border: black 1px solid;
+  flex:3;
+  height: 50vh;
+}
+.roulette
+{
+  isplay: inline-block;
+  margin: 30px;
+  color: white;
+  background-color: #69A3B9;
+  width: 100px;
+  height: 100px;
+  border: black 1px solid;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 3em;
+  font-size: 2em;
+}
+.play
+{
+  border: black 1px solid;
+  height: 35px;
+  width: 80%;
 }
 </style>
