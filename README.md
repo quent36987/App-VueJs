@@ -1,4 +1,9 @@
-# untitled
+# Jeux de roulette en ligne !
+
+## Description
+
+Le but est de jouer à la roulette en ligne avec des amis.
+(Projet pour se former sur VueJs, express et nodejs)
 
 ## Project setup
 ```
@@ -9,16 +14,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
