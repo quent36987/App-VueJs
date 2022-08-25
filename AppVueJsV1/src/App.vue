@@ -119,6 +119,7 @@ function Play() {
     wheel.value = number
     // calculation of earnings and displays the winning squares during 1s
     let gain = 0;
+
     bets.value.forEach((mise) => {
       if (mise.condition(number)) {
         let color = mise.back
