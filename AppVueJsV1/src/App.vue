@@ -3,11 +3,11 @@ import {ref, onMounted} from 'vue'
 import JSConfetti from 'js-confetti'
 
 const confetti = new JSConfetti()
-
 /*** PARAM ***/
 const red_number = [
   1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36
 ]
+
 const typeOfBet = [1, 5, 25, 100]
 const bets = ref([
   {

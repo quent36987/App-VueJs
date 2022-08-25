@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 // jwt secret
 const JWT_SECRET = 'myRandomHash';
 
+let players = [];
+
 const io = require("socket.io")(http, {
 	cors: {
 		origins: [
@@ -40,10 +42,12 @@ io.use(async (socket, next) => {
 io.on('connection', (socket) => {
   // join user's own room
   socket.join(socket.user.id);
+  players.push(socket);
   socket.join('myRandomChatRoomId');
   // find user's all channels from the database and call join event on all of them.
   console.log('a user connected');
   socket.on('disconnect', () => {
+    players = players.filter((i) => i.socket.user.id !== socket.user.id )
     console.log('user disconnected');
   });
   socket.on('my message', (msg) => {
@@ -78,3 +82,8 @@ io.on('connection', (socket) => {
 http.listen(3000, () => {
   console.log('listening on *:3000');
 });
+
+process.stdin.once('data' , data => {
+  console.log('goo ' + data)
+  io.emit('my broadcast', `server: READY`);
+})

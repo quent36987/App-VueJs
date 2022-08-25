@@ -11,10 +11,11 @@ class SocketioService {
       },
     });
     console.log(`Connecting socket...`);
-    
+
     this.socket.on('my broadcast', (data) => {
       console.log(data);
     });
+    return this.socket;
   }
 
   subscribeToMessages(cb) {
