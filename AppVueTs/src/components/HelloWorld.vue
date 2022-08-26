@@ -78,8 +78,6 @@ export default class HelloWorld extends Vue {
     1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36,
   ];
   public typeOfBet = [1, 5, 25, 100];
-
-  public bets = [new Bet("coucou")];
   /*** VARIABLE ***/
   /*public bets = [
     {
@@ -191,6 +189,19 @@ export default class HelloWorld extends Vue {
       condition: (val: number) => (val + 2) % 3 === 0,
     },
   ];*/
+  public bets = [
+    new Bet(
+      0,
+      "0",
+      36,
+      "1",
+      "1/4",
+      "green",
+      0,
+      (val: number) => val > 0 && val < 13
+    ),
+  ];
+
 
   @Getter("getMoney") public money!: () => number;
   public wheel = 0;
