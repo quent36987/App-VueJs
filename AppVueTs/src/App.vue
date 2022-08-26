@@ -10,6 +10,11 @@
 
 <style>
 #app {
+  --case-highlight: rgba(134, 192, 119, 0.3);
+  --red: #ff3333;
+  --green: #497c18;
+  --black: black;
+
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

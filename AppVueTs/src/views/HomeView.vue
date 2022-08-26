@@ -1,17 +1,17 @@
 <template>
-  <div>
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+    <div>
+        <BoardGame />
+    </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+    import BoardGame from "@/components/BoardGame.vue";
+    import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
-export default class HomeView extends Vue {}
+    @Component({
+        components: {
+            boardGame: BoardGame,
+        },
+    })
+    export default class HomeView extends Vue {}
 </script>
