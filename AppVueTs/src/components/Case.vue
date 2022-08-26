@@ -1,12 +1,15 @@
 <template>
   <div
+    @click="$emit('click')"
+    @contextmenu.prevent
+    @click.right="$emit('click_right')"
     :style="{
-      backgroundColor: this.backgroundColor,
+      backgroundColor: backgroundColor,
     }"
   >
-    {{ this.title }}
-    <div class="block_mise_1_item_val" v-if="this.value > 0">
-      {{ this.value }}
+    {{ title }}
+    <div class="block_mise_1_item_val" v-if="value > 0">
+      {{ value }}
     </div>
   </div>
 </template>

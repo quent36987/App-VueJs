@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
-    increment(state, n: number) {
+    incrementMoney(state, n: number) {
       state.money += n;
     },
     addBet(state, payload: { id: number; val: number }) {
@@ -28,6 +28,9 @@ export const store = new Vuex.Store({
         state.bets.push(payload);
       }
       console.log(state.bets);
+    },
+    resetBet(state) {
+      state.bets = [];
     },
   },
   actions: {},

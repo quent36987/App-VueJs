@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="header">
-      <span>{{ this.money() }} 💲</span>
+      <span>{{ money() }} 💲</span>
     </div>
     <div class="gains">
       <ul v-for="gain in earnings" :key="gain">
@@ -30,17 +30,18 @@
       <div class="block_mise">
         <div class="block_mise_1">
           <Case
-            v-for="mise in bets"
-            :key="mise.id"
+            v-for="bet in bets"
+            :key="bet.id"
             class="block_mise_1_item"
             :style="{
-              gridColumn: mise.gridCol ? mise.gridCol : '',
-              gridRow: mise.gridRow ? mise.gridRow : '',
+              gridColumn: bet.gridCol ? bet.gridCol : '',
+              gridRow: bet.gridRow ? bet.gridRow : '',
             }"
-            :title="mise.title"
-            :background-color="mise.back"
-            :ernings="mise.gain"
-            :id="mise.id"
+            :title="bet.title"
+            :background-color="bet.backgroundColor"
+            :value="bet.value"
+            @click="bet.Increment(typeOfBetSelected)"
+            @click_right="bet.Decrement(typeOfBetSelected)"
           >
           </Case>
         </div>
@@ -67,6 +68,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter } from "vuex-class";
 import Case from "@/components/Case.vue";
 import Bet from "@/class/bet";
+import { store } from "@/store";
 @Component({
   components: { Case },
 })
@@ -78,117 +80,8 @@ export default class HelloWorld extends Vue {
     1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36,
   ];
   public typeOfBet = [1, 5, 25, 100];
+
   /*** VARIABLE ***/
-  /*public bets = [
-    {
-      id: 0,
-      title: "0",
-      gain: 36,
-      gridCol: "1",
-      gridRow: "1/4",
-      back: "green",
-      condition: (val: number) => val > 0 && val < 13,
-    },
-    {
-      id: 48,
-      title: "1st 12",
-      gain: 3,
-      gridCol: "2 / 6",
-      back: "green",
-      condition: (val: number) => val > 0 && val < 13,
-    },
-    {
-      id: 49,
-      title: "2nd 12",
-      gain: 3,
-      gridCol: "6/10",
-      back: "green",
-      condition: (val: number) => val > 12 && val < 25,
-    },
-    {
-      id: 37,
-      title: "3rd 12",
-      gain: 3,
-      gridCol: "10/14",
-      back: "green",
-      condition: (val: number) => val > 24,
-    },
-    {
-      id: 38,
-      title: "1 To 18",
-      gain: 2,
-      gridCol: "2/4",
-      back: "green",
-      condition: (val: number) => val > 0 && val < 18,
-    },
-    {
-      id: 39,
-      title: "EVEN",
-      gain: 2,
-      gridCol: "4/6",
-      back: "green",
-      condition: (val: number) => val % 2 === 0,
-    },
-    {
-      id: 40,
-      title: "R",
-      gain: 2,
-      gridCol: "6/8",
-      back: "red",
-      condition: (val: number) => this.red_number.includes(val),
-    },
-    {
-      id: 41,
-      title: "B",
-      gain: 2,
-      gridCol: "8/10",
-      back: "black",
-      condition: (val: number) => !this.red_number.includes(val),
-    },
-    {
-      id: 42,
-      title: "ODD",
-      gain: 2,
-      gridCol: "10/12",
-      back: "green",
-      condition: (val: number) => val % 2 === 1,
-    },
-    {
-      id: 43,
-      title: "19 To 36",
-      gain: 2,
-      gridCol: "12/14",
-      back: "green",
-      condition: (val: number) => val >= 19,
-    },
-    {
-      id: 44,
-      title: "2to1",
-      gain: 3,
-      gridCol: "14",
-      gridRow: "1",
-      back: "green",
-      condition: (val: number) => val % 3 === 0,
-    },
-    {
-      id: 45,
-      title: "2to1",
-      gain: 3,
-      gridCol: "14",
-      gridRow: "2",
-      back: "green",
-      condition: (val: number) => (val + 1) % 3 === 0,
-    },
-    {
-      id: 46,
-      title: "2to1",
-      gain: 3,
-      gridCol: "14",
-      gridRow: "3",
-      back: "green",
-      condition: (val: number) => (val + 2) % 3 === 0,
-    },
-  ];*/
   public bets = [
     new Bet(
       0,
@@ -200,8 +93,120 @@ export default class HelloWorld extends Vue {
       0,
       (val: number) => val > 0 && val < 13
     ),
+    new Bet(
+      48,
+      "1st 12",
+      3,
+      "2 / 6",
+      "",
+      "green",
+      0,
+      (val: number) => val > 0 && val < 13
+    ),
+    new Bet(
+      49,
+      "2nd 12",
+      3,
+      "6/10",
+      "",
+      "green",
+      0,
+      (val: number) => val > 12 && val < 25
+    ),
+    new Bet(
+      37,
+      "3rd 12",
+      3,
+      "10/14",
+      "",
+      "green",
+      0,
+      (val: number) => val > 24
+    ),
+    new Bet(
+      38,
+      "1 To 18",
+      2,
+      "2/4",
+      "",
+      "green",
+      0,
+      (val: number) => val > 0 && val < 18
+    ),
+    new Bet(
+      39,
+      "EVEN",
+      2,
+      "4/6",
+      "",
+      "green",
+      0,
+      (val: number) => val % 2 === 0
+    ),
+    new Bet(40, "R", 2, "6/8", "", "red", 0, (val: number) =>
+      this.red_number.includes(val)
+    ),
+    new Bet(
+      41,
+      "B",
+      2,
+      "8/10",
+      "",
+      "black",
+      0,
+      (val: number) => !this.red_number.includes(val)
+    ),
+    new Bet(
+      42,
+      "ODD",
+      2,
+      "10/12",
+      "",
+      "green",
+      0,
+      (val: number) => val % 2 === 1
+    ),
+    new Bet(
+      43,
+      "19 To 36",
+      2,
+      "12/14",
+      "",
+      "green",
+      0,
+      (val: number) => val >= 19
+    ),
+    new Bet(
+      44,
+      "2to1",
+      3,
+      "14",
+      "1",
+      "green",
+      0,
+      (val: number) => val % 3 === 0
+    ),
+    new Bet(
+      45,
+      "2to1",
+      3,
+      "14",
+      "2",
+      "green",
+      0,
+      (val: number) => (val + 1) % 3 === 0
+    ),
+    new Bet(
+      46,
+      "2to1",
+      3,
+      "14",
+      "3",
+      "green",
+      0,
+      (val: number) => (val + 2) % 3 === 0
+    ),
   ];
-
 
   @Getter("getMoney") public money!: () => number;
   public wheel = 0;
@@ -215,26 +220,36 @@ export default class HelloWorld extends Vue {
     // initializes boxes from 1 to 36 automatically
     for (let row = 1; row <= 3; row++) {
       for (let col = 4 - row; col <= 36; col += 3) {
-        this.bets.push({
-          id: col,
-          title: col.toString(),
-          gain: 36,
-          gridCol: ((col + 3) / 3).toString(),
-          gridRow: row.toString(),
-          back: this.red_number.includes(col) ? "red" : "black",
-          condition: (val) => val === col,
-        });
+        this.bets.push(
+          new Bet(
+            col,
+            col.toString(),
+            36,
+            ((col + 3) / 3).toString(),
+            row.toString(),
+            this.red_number.includes(col) ? "red" : "black",
+            0,
+            (val) => val === col
+          )
+        );
       }
     }
-
-    //let cases =  new Case()
   }
 
   /*** METHODE ***/
-  Play() {
+  async Play() {
     console.log("oui");
     let number = Math.floor(Math.random() * 38) - 1;
     this.wheel = number;
+
+    let results = [];
+    for (let bet of this.bets) {
+      results.push(bet.Result(number));
+    }
+    let tab = await Promise.all(results);
+    let gain = tab.reduce((accumulator, curr) => accumulator + curr);
+    console.log(number, gain);
+    store.commit("incrementMoney", gain);
   }
 }
 </script>
