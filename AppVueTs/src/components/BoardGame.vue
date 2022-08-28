@@ -16,7 +16,7 @@
                 <div
                     class="roulette"
                     :style="{
-                        backgroundColor: red_number.includes(wheel)
+                        '--bg-color': redNumber.includes(wheel)
                             ? 'red'
                             : 'black',
                     }"
@@ -73,6 +73,12 @@
     import { Getter } from "vuex-class";
     import { Component, Vue } from "vue-property-decorator";
     import { EMutation, store } from "@/store";
+
+    const configTable = {
+      redNumber : [
+        1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36,
+      ],
+    }
 
     @Component({
         components: { case: Case },
@@ -148,7 +154,7 @@
                 (val: number): boolean => val % 2 === 0
             ),
             new Bet(40, "R", 2, "6/8", "", "red", 0, (val: number): boolean =>
-                this.red_number.includes(val)
+                this.redNumber.includes(val)
             ),
             new Bet(
                 41,
@@ -158,7 +164,7 @@
                 "",
                 "black",
                 0,
-                (val: number): boolean => !this.red_number.includes(val)
+                (val: number): boolean => !this.redNumber.includes(val) && val !==0
             ),
             new Bet(
                 42,
@@ -188,7 +194,7 @@
                 "1",
                 "green",
                 0,
-                (val: number): boolean => val % 3 === 0
+                (val: number): boolean => val % 3 === 0 && val !== 0
             ),
             new Bet(
                 45,
@@ -385,11 +391,14 @@
     }
 
     .roulette {
+        --bg--color: "";
+        background-color: var(--bg--color);
+
         display: inline-block;
         color: white;
         width: 200px;
         height: 200px;
-        background-color: aquamarine;
+        
         border-radius: 50%;
         text-align: center;
         line-height: 3em;

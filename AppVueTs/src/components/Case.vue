@@ -21,10 +21,10 @@
 
     @Component
     export default class Case extends Vue {
-        @Prop() private readonly _backgroundColor!: string;
-        @Prop() private readonly _highlight!: boolean;
-        @Prop() private readonly _title!: string;
-        @Prop() private readonly _value!: number;
+        @Prop() private readonly backgroundColor!: string;
+        @Prop() private readonly highlight!: boolean;
+        @Prop() private readonly title!: string;
+        @Prop() private readonly value!: number;
     }
 </script>
 
