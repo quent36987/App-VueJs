@@ -1,5 +1,5 @@
 import Gain from "@/class/gain";
-import { IStore } from "@/store/index";
+import { IStoreType } from "@/store/state";
 
 export const enum EMutation {
     AddBet = "addBet",
@@ -10,11 +10,11 @@ export const enum EMutation {
 }
 
 export const mutations = {
-    [EMutation.IncrementMoney](state: IStore, val: number): void {
+    [EMutation.IncrementMoney](state: IStoreType, val: number): void {
         state.money += val;
     },
     [EMutation.AddBet](
-        state: IStore,
+        state: IStoreType,
         payload: { id: number; val: number }
     ): void {
         const bet = state.bets.find((elt): boolean => elt.id === payload.id);
@@ -24,13 +24,13 @@ export const mutations = {
             state.bets.push(payload);
         }
     },
-    [EMutation.ResetBet](state: IStore): void {
+    [EMutation.ResetBet](state: IStoreType): void {
         state.bets = [];
     },
-    [EMutation.PickToken](state: IStore, token: number): void {
+    [EMutation.PickToken](state: IStoreType, token: number): void {
         state.tokenSelected = token;
     },
-    [EMutation.AddGain](state: IStore, gain: Gain): void {
+    [EMutation.AddGain](state: IStoreType, gain: Gain): void {
         state.gains.unshift(gain);
     },
 };

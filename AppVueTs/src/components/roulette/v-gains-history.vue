@@ -1,14 +1,13 @@
 <template>
     <div class="gains">
-        <v-gain v-for="gain in gains" :key="gain.value" :value="gain.gain">
-        </v-gain>
+        <v-gain v-for="gain in gains" :key="gain.id" :gain="gain"> </v-gain>
     </div>
 </template>
 
 <script lang="ts">
     import Gain from "@/class/gain";
     import { State } from "vuex-class";
-    import { VGain } from "@/components/index";
+    import { VGain } from "@/components/roulette/index";
     import { Component, Vue } from "vue-property-decorator";
 
     @Component({

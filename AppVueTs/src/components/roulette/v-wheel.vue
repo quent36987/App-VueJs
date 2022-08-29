@@ -11,7 +11,7 @@
         <button
             class="play"
             :style="{
-                'visibility': playButtonHidden ? '' : 'hidden',
+                '--hidden': playButtonHidden ? '' : 'hidden',
             }"
             @click="$emit('click')"
         >
@@ -57,8 +57,8 @@
         font-size: 4em;
     }
     .play {
-        --hiden: none;
-        visibility: var(--hiden);
+        --hidden: none;
+        visibility: var(--hidden);
         border: black 1px solid;
         height: 35px;
         width: 80%;

@@ -1,16 +1,17 @@
 <template>
     <div class="gain">
-        {{ value > 0 ? "➕" : "➖" }}
-        {{ Math.abs(value) }}
+        {{ gain.gain > 0 ? "➕" : "➖" }}
+        {{ Math.abs(gain.gain) }}
     </div>
 </template>
 
 <script lang="ts">
+    import Gain from "@/class/gain";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
     export default class VGain extends Vue {
-        @Prop() protected readonly gain!: number;
+        @Prop() protected readonly gain!: Gain;
     }
 </script>
 

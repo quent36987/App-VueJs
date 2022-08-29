@@ -29,7 +29,7 @@
         VHeader,
         VTokenList,
         VWheel,
-    } from "@/components";
+    } from "@/components/roulette";
 
     @Component({
         components: {
@@ -110,9 +110,16 @@
             );
         }
 
+        private addGain(gain: number): void {
+            const getters = store.getters as { totalMise: number };
+            store.commit(
+                EMutation.AddGain,
+                new Gain(this.wheel, gain - getters.totalMise)
+            );
+        }
+
         private async calculateResults(): Promise<void> {
             const NUMBER_NUM_WHEEL = 36;
-            this.wheelStyle = "";
             this.isRunning = false;
             this.wheel = Math.floor(Math.random() * (NUMBER_NUM_WHEEL + 1));
             if (this.wheel === 0) {
@@ -122,7 +129,6 @@
                     ? "red"
                     : "black";
             }
-
             const results = [];
             for (const bet of this.cases) {
                 results.push(bet.result(this.wheel));
@@ -132,8 +138,8 @@
                 (accumulator, curr): number => accumulator + curr
             );
             store.commit(EMutation.IncrementMoney, GAIN);
+            this.addGain(GAIN);
             store.commit(EMutation.ResetBet);
-            store.commit(EMutation.AddGain, new Gain(this.wheel, GAIN));
         }
     }
 </script>

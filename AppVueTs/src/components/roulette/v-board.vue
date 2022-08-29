@@ -21,7 +21,7 @@
 <script lang="ts">
     import Case from "@/class/case";
     import { State } from "vuex-class";
-    import { VCase } from "@/components";
+    import { VCase } from "@/components/roulette/index";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component({

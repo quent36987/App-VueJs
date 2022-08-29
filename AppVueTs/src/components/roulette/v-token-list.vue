@@ -11,7 +11,7 @@
 
 <script lang="ts">
     import { State } from "vuex-class";
-    import { VToken } from "@/components/index";
+    import { VToken } from "@/components/roulette/index";
     import { Component, Vue } from "vue-property-decorator";
     import { EMutation, store } from "@/store";
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention, @typescript-eslint/explicit-module-boundary-types */
-const VPageRoulette = async () => import("@/pages/v-page-roulette.vue");
-const VPageHistory = async () => import("@/pages/v-page-history.vue");
+const VBetHistory = async () =>
+    import("@/components/history/v-bet-history.vue");
 /* eslint-enable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
 
-export { VPageRoulette, VPageHistory };
+export { VBetHistory };

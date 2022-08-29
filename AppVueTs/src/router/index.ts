@@ -1,6 +1,6 @@
-import AboutView from "../pages/AboutView.vue";
 /* eslint-disable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
 const VPageRoulette = async () => import("@/pages/v-page-roulette.vue");
+const VPageHistory = async () => import("@/pages/v-page-history.vue");
 /* eslint-enable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
@@ -13,7 +13,7 @@ const routes: RouteConfig[] = [
         name: "home",
         path: "/",
     },
-    { component: AboutView, name: "about", path: "/about" },
+    { component: VPageHistory, name: "history", path: "/history" },
 ];
 
 const router = new VueRouter({
