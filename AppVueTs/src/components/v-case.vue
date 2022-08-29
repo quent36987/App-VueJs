@@ -1,7 +1,7 @@
 <template>
     <div
         class="case"
-        :class="{ highlight }"
+        :class="{ highlight: highlight }"
         @click="$emit('click')"
         @contextmenu.prevent
         @click.right="$emit('click_right')"
@@ -21,10 +21,10 @@
 
     @Component
     export default class Case extends Vue {
-        @Prop() private readonly _backgroundColor!: string;
-        @Prop() private readonly _highlight!: boolean;
-        @Prop() private readonly _title!: string;
-        @Prop() private readonly _value!: number;
+        @Prop() protected readonly backgroundColor!: string;
+        @Prop() protected readonly highlight!: boolean;
+        @Prop() protected readonly title!: string;
+        @Prop() protected readonly value!: number;
     }
 </script>
 
@@ -45,16 +45,15 @@
     }
 
     .case.highlight {
-        /*background-color: yellow !important;*/
         animation-name: blink;
-        animation-duration: 4s;
+        animation-duration: 5s;
     }
 
     @keyframes blink {
         0% {
             background-color: var(--bg-color);
         }
-        25% {
+        40% {
             background-color: var(--case-highlight);
         }
         100% {

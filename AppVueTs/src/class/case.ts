@@ -1,6 +1,6 @@
 import { EMutation, store } from "@/store";
 
-export default class Bet {
+export default class Case {
     public backgroundColor: string;
     public condition: (val: number) => boolean;
     public gain: number;
@@ -27,7 +27,8 @@ export default class Bet {
         this.gridRow = gridRow;
         this.gridCol = gridCol;
         this.backgroundColor = backgroundColor;
-        this.value = value;
+        const getters = store.getters as { betsId(id: number): number };
+        this.value = value + getters.betsId(id);
         this.condition = condition;
     }
 
@@ -40,8 +41,8 @@ export default class Bet {
     }
 
     public incrementValue(value: number): void {
-        const getters = store.getters as { getMoney(): number };
-        if (getters.getMoney() >= value) {
+        const getters = store.getters as { money: number };
+        if (getters.money >= value) {
             store.commit(EMutation.IncrementMoney, -value);
             store.commit(EMutation.AddBet, { id: this.id, val: value });
             this.value += value;

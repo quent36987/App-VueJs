@@ -10,9 +10,9 @@
 
 <style>
 #app {
-  --case-highlight: rgba(134, 192, 119, 0.3);
+  --case-highlight: rgba(200, 210, 197, 0.3);
   --red: #ff3333;
-  --green: #497c18;
+  --green: #30570b;
   --black: black;
 
   font-family: Avenir, Helvetica, Arial, sans-serif;
