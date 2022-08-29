@@ -4,12 +4,10 @@
         <v-gain-history />
         <div class="block_body">
             <v-wheel
-                :value="wheel"
-                :wheel-color="wheelColor"
                 :play-button-hidden="playButton"
                 @click="play"
             />
-            <v-board :is-running="isRunning" :wheel="wheel" :cases="cases" />
+            <v-board :is-running="isRunning"  :cases="cases" />
             <v-token-list />
         </div>
     </div>
@@ -43,13 +41,11 @@
     })
     export default class PageRoulette extends Vue {
         @State protected readonly tokenSelected!: number;
+        @State protected readonly wheelNumber!: number;
 
         public cases: Case[] = [];
         public isRunning = true;
         public playButton = true;
-        public wheel = 0;
-        public wheelColor = "green";
-        public wheelStyle = "";
 
         public initCaseConfig(firstId: number): void {
             caseConfig.forEach((elt, index): number =>
@@ -90,12 +86,10 @@
                 }
             }
             this.initCaseConfig(id);
-            console.log("dsdcdsc");
         }
 
         /** Run the wheel */
         public play(): void {
-            this.wheelStyle = "roulette_img";
             this.isRunning = true;
             this.playButton = false;
             const DELAY_HIDDEN_PLAY_BUTTON = 1800;
@@ -114,24 +108,20 @@
             const getters = store.getters as { totalMise: number };
             store.commit(
                 EMutation.AddGain,
-                new Gain(this.wheel, gain - getters.totalMise)
+                new Gain(this.wheelNumber, gain - getters.totalMise)
             );
         }
 
         private async calculateResults(): Promise<void> {
             const NUMBER_NUM_WHEEL = 36;
             this.isRunning = false;
-            this.wheel = Math.floor(Math.random() * (NUMBER_NUM_WHEEL + 1));
-            if (this.wheel === 0) {
-                this.wheelColor = "green";
-            } else {
-                this.wheelColor = redNumber.includes(this.wheel)
-                    ? "red"
-                    : "black";
-            }
+            store.commit(
+                EMutation.SetWheelNumber,
+                Math.floor(Math.random() * (NUMBER_NUM_WHEEL + 1))
+            );
             const results = [];
             for (const bet of this.cases) {
-                results.push(bet.result(this.wheel));
+                results.push(bet.result(this.wheelNumber));
             }
             const tab = await Promise.all(results);
             const GAIN = tab.reduce(

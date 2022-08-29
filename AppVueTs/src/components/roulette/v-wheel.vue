@@ -3,10 +3,10 @@
         <div
             class="roulette"
             :style="{
-                '--bg-color': `var(--${wheelColor})`,
+                '--bg-color': `var(--${wheelColor()})`,
             }"
         >
-            {{ value }}
+            {{ wheelNumber }}
         </div>
         <button
             class="play"
@@ -21,13 +21,21 @@
 </template>
 
 <script lang="ts">
+    import { redNumber } from "@/class/config-bet";
+    import { State } from "vuex-class";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
     export default class VWheel extends Vue {
         @Prop() protected readonly playButtonHidden!: boolean;
-        @Prop() protected readonly value!: number;
-        @Prop() protected readonly wheelColor!: string;
+        @State protected readonly wheelNumber!: number;
+
+        public wheelColor(): string {
+            if (this.wheelNumber === 0) {
+                return "green";
+            }
+            return redNumber.includes(this.wheelNumber) ? "red" : "black";
+        }
     }
 </script>
 

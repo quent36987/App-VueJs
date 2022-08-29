@@ -7,6 +7,7 @@ export const enum EMutation {
     IncrementMoney = "incrementMoney",
     ResetBet = "resetBet",
     PickToken = "pickToken",
+    SetWheelNumber = "setWheelNumber",
 }
 
 export const mutations = {
@@ -32,5 +33,8 @@ export const mutations = {
     },
     [EMutation.AddGain](state: IStoreType, gain: Gain): void {
         state.gains.unshift(gain);
+    },
+    [EMutation.SetWheelNumber](state: IStoreType, value: number): void {
+        state.wheelNumber = value;
     },
 };

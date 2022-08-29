@@ -16,6 +16,7 @@ export interface IStoreType {
     money: number;
     tokenList: number[];
     tokenSelected: number;
+    wheelNumber: number;
 }
 
 export const state: IStoreType = {
@@ -24,4 +25,5 @@ export const state: IStoreType = {
     money: MONEY_INIT,
     tokenList: tokenInit,
     tokenSelected: 1,
+    wheelNumber: 0,
 };

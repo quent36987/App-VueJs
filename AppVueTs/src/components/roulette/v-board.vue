@@ -11,7 +11,7 @@
             :title="elt.title"
             :background-color="elt.backgroundColor"
             :value="elt.value"
-            :highlight="elt.condition(wheel) && !isRunning"
+            :highlight="elt.condition(wheelNumber) && !isRunning"
             @click="elt.incrementValue(tokenSelected)"
             @click_right="elt.decrementValue(tokenSelected)"
         />
@@ -33,7 +33,7 @@
         @Prop() protected readonly cases!: Case[];
         @Prop() protected readonly isRunning!: boolean;
         @State protected readonly tokenSelected!: number;
-        @Prop() protected readonly wheel!: number;
+        @State protected readonly wheelNumber!: number;
     }
 </script>
 

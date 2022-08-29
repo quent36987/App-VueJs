@@ -1,3 +1,4 @@
+import Case from "@/class/case";
 import { isEven } from "@/utils/math";
 
 export const redNumber = [
@@ -145,3 +146,46 @@ export const caseConfig = [
         value: 0,
     },
 ];
+
+function initCaseConfig(cases: Case[], firstId: number): void {
+    caseConfig.forEach((elt, index): number =>
+        cases.push(
+            new Case(
+                firstId + index,
+                elt.title,
+                elt.gain,
+                elt.gridCol,
+                elt.gridRow,
+                elt.background,
+                0,
+                elt.condition
+            )
+        )
+    );
+}
+
+export function initCase(): Case[] {
+    const cases: Case[] = [];
+    let myId = 0;
+    const ROW = 3;
+    const COL = 36;
+    for (let row = 1; row <= ROW; row += 1) {
+        for (let col = ROW + 1 - row; col <= COL; col += ROW) {
+            cases.push(
+                new Case(
+                    myId,
+                    col.toString(),
+                    COL,
+                    ((col + ROW) / ROW).toString(),
+                    row.toString(),
+                    redNumber.includes(col) ? "red" : "black",
+                    0,
+                    (val: number): boolean => val === col
+                )
+            );
+            myId += 1;
+        }
+    }
+    initCaseConfig(cases, myId);
+    return cases;
+}
