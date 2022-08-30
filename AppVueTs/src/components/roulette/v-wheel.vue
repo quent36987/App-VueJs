@@ -11,7 +11,7 @@
 
 <script lang="ts">
     import { IDict } from "@/utils/interfaces";
-    import { redNumber } from "@/class/config-bet";
+    import { redNumber } from "@/configs/case-config";
     import { State } from "vuex-class";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
@@ -24,6 +24,7 @@
             if (this.wheelNumber === 0) {
                 return "green";
             }
+
             return redNumber.includes(this.wheelNumber) ? "red" : "black";
         }
 

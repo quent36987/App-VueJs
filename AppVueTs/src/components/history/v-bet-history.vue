@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-    import Gain from "@/class/gain";
+    import Gain from "@/models/gain";
     import { IDict } from "@/utils/interfaces";
-    import { redNumber } from "@/class/config-bet";
+    import { redNumber } from "@/configs/case-config";
     import { Component, Prop, Vue } from "vue-property-decorator";
     @Component
     export default class VBetHistory extends Vue {
@@ -21,7 +21,7 @@
         protected get textGain(): string {
             return `${this.gain.gain > 0 ? "➕" : "➖"} ${Math.abs(
                 this.gain.gain
-            )}`;
+            )} (${this.gain.money}$)`;
         }
 
         private bgColor(): string {
@@ -50,9 +50,11 @@
         gap: 10px;
         margin-bottom: 5px;
     }
+
     .number_center {
         margin: auto;
     }
+
     .number {
         --bg-color: pink;
         background-color: var(--bg-color);

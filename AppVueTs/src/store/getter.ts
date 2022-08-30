@@ -18,7 +18,10 @@ export const getters = {
     },
     totalMise(state: IStoreType): number {
         let mise = 0;
-        state.bets.forEach((elt): number => (mise += elt.val));
+        for(const elt of state.bets)
+        {
+            mise += elt.val;
+        }
         return mise;
     },
 };

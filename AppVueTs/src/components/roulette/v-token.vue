@@ -37,6 +37,7 @@
         font-weight: bold;
         padding: 10px;
     }
+
     .block_somme_item:hover {
         background-color: #2df317;
     }

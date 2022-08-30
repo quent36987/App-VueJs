@@ -1,36 +1,36 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Roulette</router-link> |
-      <router-link to="/history">Historique</router-link>
-    </nav>
-    <router-view />
-  </div>
+    <div id="app">
+        <nav>
+            <router-link to="/">Roulette</router-link> |
+            <router-link to="/history">Historique</router-link>
+        </nav>
+        <router-view />
+    </div>
 </template>
 
 <style>
-#app {
-  --case-highlight: rgba(200, 210, 197, 0.3);
-  --red: #ff3333;
-  --green: #30570b;
-  --black: black;
+    #app {
+        --case-highlight: rgba(200, 210, 197, 0.3);
+        --red: #ff3333;
+        --green: #30570b;
+        --black: black;
 
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+    }
 
-nav {
-  padding: 30px;
-}
+    nav {
+        padding: 30px;
+    }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    nav a {
+        font-weight: bold;
+        color: #2c3e50;
+    }
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+    nav a.router-link-exact-active {
+        color: #42b983;
+    }
 </style>

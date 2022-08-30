@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-    import Gain from "@/class/gain";
+    import Gain from "@/models/gain";
     import { State } from "vuex-class";
     import { VGain } from "@/components/roulette/index";
     import { Component, Vue } from "vue-property-decorator";

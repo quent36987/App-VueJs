@@ -9,7 +9,7 @@
             '--bg-color': `var(--${backgroundColor})`,
         }"
     >
-        {{ title }}
+      <slot name="title"></slot>
         <div class="block_mise_1_item_val" v-if="value > 0">
             {{ value }}
         </div>
@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+    // import { Case as toto } from "@/models/case";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
@@ -25,6 +26,9 @@
         @Prop() protected readonly highlight!: boolean;
         @Prop() protected readonly title!: string;
         @Prop() protected readonly value!: number;
+
+        // @Prop() protected readonly case!: toto;
+
     }
 </script>
 

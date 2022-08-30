@@ -1,4 +1,4 @@
-import Gain from "@/class/gain";
+import Gain from "@/models/gain";
 
 // TODO : a sup ca dans database apres :O
 const MONEY_INIT = 25;

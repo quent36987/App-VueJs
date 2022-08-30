@@ -1,11 +1,25 @@
 <template>
     <div class="block_somme">
+      <slot></slot>
+
+
+
+      <v-list>
         <v-token
-            v-for="token in tokenList"
-            :key="token"
-            :value="token"
-            @click="pickToken(token)"
+          v-for="token in tokenList"
+          :key="token"
+          :value="token"
+          @click="pickToken(token)"
         />
+      </v-list>
+
+
+      <v-list :items="tokenList" />
+
+
+      <v-list :items="tokenList" >
+        <v-token />
+      </v-list>
     </div>
 </template>
 

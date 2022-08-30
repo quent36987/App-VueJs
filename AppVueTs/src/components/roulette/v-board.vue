@@ -14,12 +14,14 @@
             :highlight="elt.condition(wheelNumber) && !isRunning"
             @click="elt.incrementValue(tokenSelected)"
             @click_right="elt.decrementValue(tokenSelected)"
-        />
+        >
+            <template #title>{{ elt.title }}</template>
+        </v-case>
     </div>
 </template>
 
 <script lang="ts">
-    import Case from "@/class/case";
+    import { Case } from "@/models/case";
     import { State } from "vuex-class";
     import { VCase } from "@/components/roulette/index";
     import { Component, Prop, Vue } from "vue-property-decorator";

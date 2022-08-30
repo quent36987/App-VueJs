@@ -5,18 +5,18 @@
 </template>
 
 <script lang="ts">
-    import Gain from "@/class/gain";
+    import Gain from "@/models/gain";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
     export default class VGain extends Vue {
         @Prop() protected readonly gain!: Gain;
 
-      protected get textGain(): string {
-        return `${this.gain.gain > 0 ? "➕" : "➖"} ${Math.abs(
-          this.gain.gain
-        )}`;
-      }
+        protected get textGain(): string {
+            return `${this.gain.gain > 0 ? "➕" : "➖"} ${Math.abs(
+                this.gain.gain
+            )}`;
+        }
     }
 </script>
 
