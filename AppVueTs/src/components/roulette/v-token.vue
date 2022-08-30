@@ -1,16 +1,11 @@
 <template>
-    <div
-        class="block_somme_item"
-        :style="{
-            'background-color': tokenSelected === value ? '#2df317' : '',
-        }"
-        @click="$emit('click')"
-    >
+    <div class="block_somme_item" :style="style" @click="$emit('click')">
         {{ value }}
     </div>
 </template>
 
 <script lang="ts">
+    import { IDict } from "@/utils/interfaces";
     import { State } from "vuex-class";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
@@ -18,6 +13,13 @@
     export default class VToken extends Vue {
         @State protected readonly tokenSelected!: number;
         @Prop() protected readonly value!: number;
+
+        protected get style(): IDict<string> {
+            return {
+                "--bg--color":
+                    this.tokenSelected === this.value ? "#2df317" : "",
+            };
+        }
     }
 </script>
 
@@ -36,6 +38,6 @@
         padding: 10px;
     }
     .block_somme_item:hover {
-      background-color: #2df317;
+        background-color: #2df317;
     }
 </style>

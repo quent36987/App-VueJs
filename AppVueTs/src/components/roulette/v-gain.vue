@@ -1,7 +1,6 @@
 <template>
     <div class="gain">
-        {{ gain.gain > 0 ? "➕" : "➖" }}
-        {{ Math.abs(gain.gain) }}
+        {{ textGain }}
     </div>
 </template>
 
@@ -12,6 +11,12 @@
     @Component
     export default class VGain extends Vue {
         @Prop() protected readonly gain!: Gain;
+
+      protected get textGain(): string {
+        return `${this.gain.gain > 0 ? "➕" : "➖"} ${Math.abs(
+          this.gain.gain
+        )}`;
+      }
     }
 </script>
 

@@ -1,26 +1,16 @@
 <template>
     <div class="block_roulette">
-        <div
-            class="roulette"
-            :style="{
-                '--bg-color': `var(--${wheelColor()})`,
-            }"
-        >
+        <div class="roulette" :style="styleButton">
             {{ wheelNumber }}
         </div>
-        <button
-            class="play"
-            :style="{
-                '--hidden': playButtonHidden ? '' : 'hidden',
-            }"
-            @click="$emit('click')"
-        >
+        <button class="play" :style="styleWheel" @click="$emit('click')">
             Play
         </button>
     </div>
 </template>
 
 <script lang="ts">
+    import { IDict } from "@/utils/interfaces";
     import { redNumber } from "@/class/config-bet";
     import { State } from "vuex-class";
     import { Component, Prop, Vue } from "vue-property-decorator";
@@ -35,6 +25,18 @@
                 return "green";
             }
             return redNumber.includes(this.wheelNumber) ? "red" : "black";
+        }
+
+        protected get styleButton(): IDict<string> {
+            return {
+                "--bg-color": `var(--${this.wheelColor()})`,
+            };
+        }
+
+        protected get styleWheel(): IDict<string> {
+            return {
+                "--hidden": this.playButtonHidden ? "" : "hidden",
+            };
         }
     }
 </script>

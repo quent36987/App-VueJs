@@ -1,7 +1,7 @@
 import Gain from "@/class/gain";
 
+// TODO : a sup ca dans database apres :O
 const MONEY_INIT = 25;
-// TODO : a sup ca
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
 const tokenInit = [1, 5, 25, 100];
 

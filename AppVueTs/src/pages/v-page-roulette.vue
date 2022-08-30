@@ -3,11 +3,8 @@
         <v-header />
         <v-gain-history />
         <div class="block_body">
-            <v-wheel
-                :play-button-hidden="playButton"
-                @click="play"
-            />
-            <v-board :is-running="isRunning"  :cases="cases" />
+            <v-wheel :play-button-hidden="playButton" @click="play" />
+            <v-board :is-running="isRunning" :cases="cases" />
             <v-token-list />
         </div>
     </div>
@@ -16,10 +13,11 @@
 <script lang="ts">
     import Case from "@/class/case";
     import Gain from "@/class/gain";
+    import { initCase } from "@/class/config-bet";
     import { State } from "vuex-class";
-    import { caseConfig, redNumber } from "@/class/config-bet";
     import { Component, Vue } from "vue-property-decorator";
     import { EMutation, store } from "@/store";
+
     import {
         VBoard,
         VCase,
@@ -47,45 +45,8 @@
         public isRunning = true;
         public playButton = true;
 
-        public initCaseConfig(firstId: number): void {
-            caseConfig.forEach((elt, index): number =>
-                this.cases.push(
-                    new Case(
-                        firstId + index,
-                        elt.title,
-                        elt.gain,
-                        elt.gridCol,
-                        elt.gridRow,
-                        elt.background,
-                        0,
-                        elt.condition
-                    )
-                )
-            );
-        }
-
         public mounted(): void {
-            const ROW = 3;
-            const COL = 36;
-            let id = 0;
-            for (let row = 1; row <= ROW; row += 1) {
-                for (let col = ROW + 1 - row; col <= COL; col += ROW) {
-                    this.cases.push(
-                        new Case(
-                            id,
-                            col.toString(),
-                            COL,
-                            ((col + ROW) / ROW).toString(),
-                            row.toString(),
-                            redNumber.includes(col) ? "red" : "black",
-                            0,
-                            (val: number): boolean => val === col
-                        )
-                    );
-                    id += 1;
-                }
-            }
-            this.initCaseConfig(id);
+            this.cases = initCase();
         }
 
         /** Run the wheel */

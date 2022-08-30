@@ -7,12 +7,6 @@ export const redNumber = [
     /* eslint-enable @typescript-eslint/no-magic-numbers */
 ];
 
-export const typeOfBet = [
-    /* eslint-disable @typescript-eslint/no-magic-numbers */
-    1, 5, 25, 100,
-    /* eslint-enable @typescript-eslint/no-magic-numbers */
-];
-
 const GAIN_X2 = 2;
 const GAIN_X3 = 3;
 const GAIN_X36 = 36;
