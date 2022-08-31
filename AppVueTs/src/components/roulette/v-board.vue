@@ -12,11 +12,8 @@
             :highlight="elt.predicate(wheelNumber) && !isRunning"
             @on-click="elt.incrementValue(tokenSelected)"
             @on-click-right="elt.decrementValue(tokenSelected)"
-            v-model="checked"
         >
         </v-case>
-        <input type="checkbox" id="checkbox" v-model="checked" />
-        <label for="checkbox">{{ checked }}</label>
     </div>
 </template>
 
@@ -24,7 +21,7 @@
     import { Case } from "@/models/case";
     import { State } from "vuex-class";
     import { VCase } from "@/components/roulette/index";
-    import { Component, Prop, VModel, Vue } from "vue-property-decorator";
+    import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component({
         components: {
@@ -32,8 +29,6 @@
         },
     })
     export default class VBoard extends Vue {
-        @VModel() public readonly checked!: boolean;
-
         @Prop() protected readonly cases!: Case[];
         @Prop() protected readonly isRunning!: boolean;
         @State protected readonly tokenSelected!: number;

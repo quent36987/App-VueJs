@@ -1,31 +1,16 @@
 <template>
-    <div>
-        <nav>
-            <router-link to="/">Roulette</router-link> |
-            <router-link to="/history">Historique</router-link>
-        </nav>
-        <div class="app">
-            <v-header />
+    <div class="app">
+        <v-header />
 
-            <v-gain-history />
+        <v-gain-history />
 
-            <div class="block_body">
-                <v-wheel :play-button-hidden="playButton" @on-click="onClick" />
-                <v-board
-                    :is-running="isRunning"
-                    :cases="cases"
-                    :check="checked"
-                    @on-click-middle="checked = $event"
-                    v-model="checked"
-                />
-                <v-token-list />
-            </div>
-
-            <v-chat-box />
-
-            <input type="checkbox" id="checkbox" v-model="checked" />
-            <label for="checkbox">{{ checked }}</label>
+        <div class="block_body">
+            <v-wheel :play-button-hidden="playButton" @on-click="onClick" />
+            <v-board :is-running="isRunning" :cases="cases" />
+            <v-token-list />
         </div>
+
+        <v-chat-box />
     </div>
 </template>
 
