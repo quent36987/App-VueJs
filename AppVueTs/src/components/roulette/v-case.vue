@@ -6,6 +6,7 @@
         @contextmenu.prevent
         @click.right="$emit('on-click-right')"
         :style="style"
+        @click.middle="check = !check"
     >
         {{ caseModel.title }}
 
@@ -18,16 +19,24 @@
 <script lang="ts">
     import { Case as CaseModel } from "@/models/case";
     import { IDict } from "@/utils/interfaces";
-    import { Component, Prop, Vue } from "vue-property-decorator";
+    import { Component, Prop, VModel, Vue } from "vue-property-decorator";
 
     @Component
     export default class Case extends Vue {
         @Prop() protected readonly caseModel!: CaseModel;
+        @VModel() protected check!: boolean;
         @Prop() protected readonly highlight!: boolean;
+
+        public get backgroundColor(): string {
+            if (this.check) {
+                return "green";
+            }
+            return this.caseModel.backgroundColor;
+        }
 
         protected get style(): IDict<string> {
             return {
-                "--bg-color": `var(--${this.caseModel.backgroundColor})`,
+                "--bg-color": `var(--${this.backgroundColor})`,
             };
         }
     }

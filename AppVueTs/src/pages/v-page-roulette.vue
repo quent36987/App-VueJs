@@ -1,13 +1,30 @@
 <template>
-    <div class="app">
-        <v-header />
+    <div>
+        <nav>
+            <router-link to="/">Roulette</router-link> |
+            <router-link to="/history">Historique</router-link>
+        </nav>
+        <div class="app">
+            <v-header />
 
-        <v-gain-history />
+            <v-gain-history />
 
-        <div class="block_body">
-            <v-wheel :play-button-hidden="playButton" @on-click="onClick" />
-            <v-board :is-running="isRunning" :cases="cases" />
-            <v-token-list />
+            <div class="block_body">
+                <v-wheel :play-button-hidden="playButton" @on-click="onClick" />
+                <v-board
+                    :is-running="isRunning"
+                    :cases="cases"
+                    :check="checked"
+                    @on-click-middle="checked = $event"
+                    v-model="checked"
+                />
+                <v-token-list />
+            </div>
+
+            <v-chat-box />
+
+            <input type="checkbox" id="checkbox" v-model="checked" />
+            <label for="checkbox">{{ checked }}</label>
         </div>
     </div>
 </template>
@@ -23,6 +40,7 @@
     import {
         VBoard,
         VCase,
+        VChatBox,
         VGainHistory,
         VHeader,
         VTokenList,
@@ -33,6 +51,7 @@
         components: {
             "v-board": VBoard,
             "v-case": VCase,
+            "v-chat-box": VChatBox,
             "v-gain-history": VGainHistory,
             "v-header": VHeader,
             "v-token-list": VTokenList,
@@ -44,6 +63,8 @@
         @State protected readonly money!: number;
         @State protected readonly tokenSelected!: number;
         @State protected readonly wheelNumber!: number;
+
+        public checked = false;
 
         protected cases: Case[] = [];
         protected isRunning = true;

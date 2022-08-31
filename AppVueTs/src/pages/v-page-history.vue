@@ -1,9 +1,15 @@
 <template>
-    <v-list :items="gains" :flexDirection="flexDirection">
-        <template #item="{ item: gain }">
-            <v-bet-history :gain="gain" />
-        </template>
-    </v-list>
+    <div>
+        <nav>
+            <router-link to="/roulette">Roulette</router-link> |
+            <router-link to="/history">Historique</router-link>
+        </nav>
+        <v-list :items="gains" :flexDirection="flexDirection">
+            <template #item="{ item: gain }">
+                <v-bet-history :gain="gain" />
+            </template>
+        </v-list>
+    </div>
 </template>
 
 <script lang="ts">

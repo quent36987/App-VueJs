@@ -1,8 +1,10 @@
 <template>
     <div class="list" :style="style">
-        <div v-for="item of items" :key="item.id">
-            <slot name="item" :item="item"></slot>
-        </div>
+        <transition-group name="lists" tag="slot">
+            <div v-for="item of items" :key="item.id">
+                <slot name="item" :item="item"></slot>
+            </div>
+        </transition-group>
     </div>
 </template>
 
@@ -31,6 +33,15 @@
 </script>
 
 <style scoped>
+    .lists-enter-active,
+    .lists-leave-active {
+        transition: all 1s;
+    }
+    .lists-enter, .lists-leave-to /* .list-leave-active below version 2.1.8 */ {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
     .list {
         --flex-direction: row;
         --wight: "";

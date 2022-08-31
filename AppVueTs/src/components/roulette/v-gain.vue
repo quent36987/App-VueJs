@@ -1,5 +1,5 @@
 <template>
-    <div class="gain">
+    <div v-show="show" class="gain">
         {{ textGain }}
     </div>
 </template>
@@ -12,6 +12,12 @@
     export default class VGain extends Vue {
         @Prop() protected readonly gain!: Gain;
 
+        public show = false;
+
+        public mounted(): void {
+            this.show = true;
+        }
+
         protected get textGain(): string {
             return `${this.gain.gain > 0 ? "➕" : "➖"} ${Math.abs(
                 this.gain.gain
@@ -21,6 +27,14 @@
 </script>
 
 <style scoped>
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
+
     .gain {
         border: black 1px solid;
         padding: 5px;

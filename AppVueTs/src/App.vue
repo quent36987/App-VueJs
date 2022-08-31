@@ -1,9 +1,6 @@
 <template>
     <div id="app">
-        <nav>
-            <router-link to="/">Roulette</router-link> |
-            <router-link to="/history">Historique</router-link>
-        </nav>
+
         <router-view />
     </div>
 </template>

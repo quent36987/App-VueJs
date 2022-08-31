@@ -8,6 +8,7 @@ const VWheel = async () => import("@/components/roulette/v-wheel.vue");
 const VToken = async () => import("@/components/roulette/v-token.vue");
 const VTokenList = async () => import("@/components/roulette/v-token-list.vue");
 const VHeader = async () => import("@/components/roulette/v-header.vue");
+const VChatBox = async () => import("@/components/roulette/v-chat-box.vue");
 /* eslint-enable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
 
 export {
@@ -19,4 +20,5 @@ export {
     VWheel,
     VToken,
     VTokenList,
+    VChatBox,
 };
