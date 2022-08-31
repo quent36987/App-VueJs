@@ -1,9 +1,14 @@
 <template>
     <div class="block_roulette">
-        <div class="roulette" :style="styleButton">
+        <div class="roulette" :style="styleWheel">
             {{ wheelNumber }}
         </div>
-        <button class="play" :style="styleWheel" @click="$emit('click')">
+
+        <button
+            v-show="playButtonHidden"
+            class="play"
+            @click="$emit('on-click')"
+        >
             Play
         </button>
     </div>
@@ -20,7 +25,7 @@
         @Prop() protected readonly playButtonHidden!: boolean;
         @State protected readonly wheelNumber!: number;
 
-        public wheelColor(): string {
+        protected get wheelColor(): string {
             if (this.wheelNumber === 0) {
                 return "green";
             }
@@ -28,15 +33,9 @@
             return redNumber.includes(this.wheelNumber) ? "red" : "black";
         }
 
-        protected get styleButton(): IDict<string> {
-            return {
-                "--bg-color": `var(--${this.wheelColor()})`,
-            };
-        }
-
         protected get styleWheel(): IDict<string> {
             return {
-                "--hidden": this.playButtonHidden ? "" : "hidden",
+                "--bg-color": `var(--${this.wheelColor})`,
             };
         }
     }
@@ -61,15 +60,16 @@
         color: white;
         width: 200px;
         height: 200px;
-
         border-radius: 50%;
         text-align: center;
         line-height: 3em;
         font-size: 4em;
     }
+
     .play {
         --hidden: none;
         visibility: var(--hidden);
+
         border: black 1px solid;
         height: 35px;
         width: 80%;

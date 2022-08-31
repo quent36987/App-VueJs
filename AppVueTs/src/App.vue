@@ -15,6 +15,9 @@
         --green: #30570b;
         --black: black;
 
+        --column: column;
+        --row: row;
+
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;

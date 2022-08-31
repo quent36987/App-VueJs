@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-    import Gain from "@/models/gain";
+    import { Gain } from "@/models/gain";
     import { IDict } from "@/utils/interfaces";
     import { redNumber } from "@/configs/case-config";
     import { Component, Prop, Vue } from "vue-property-decorator";

@@ -3,10 +3,10 @@ import { EMutation, store } from "@/store";
 export class Case {
     public static idIndex = 0;
     public backgroundColor: string;
-    public condition: (val: number) => boolean;
-    public gain: number;
+    public factor: number;
     public gridCol: string;
     public gridRow: string;
+    public predicate: (val: number) => boolean;
     public title: string;
     public value: number;
     private readonly _id: number;
@@ -14,7 +14,7 @@ export class Case {
     // eslint-disable-next-line max-params
     public constructor(
         title: string,
-        gain: number,
+        factor: number,
         gridCol: string,
         gridRow: string,
         backgroundColor: string,
@@ -23,13 +23,13 @@ export class Case {
     ) {
         this._id = Case.idIndex;
         this.title = title;
-        this.gain = gain;
+        this.factor = factor;
         this.gridRow = gridRow;
         this.gridCol = gridCol;
         this.backgroundColor = backgroundColor;
         const getters = store.getters as { betsId(id: number): number };
         this.value = value + getters.betsId(Case.idIndex);
-        this.condition = condition;
+        this.predicate = condition;
         Case.idIndex += 1;
     }
 
@@ -51,15 +51,15 @@ export class Case {
     }
 
     public result(value: number): number {
-        const TMP = this.value;
+        const CASE_VALUE = this.value;
 
-        if (this.condition(value)) {
+        if (this.predicate(value)) {
             const DELAY_DELETE_VALUE = 1500;
             setTimeout((): void => {
                 this.value = 0;
             }, DELAY_DELETE_VALUE);
 
-            return this.gain * TMP;
+            return this.factor * CASE_VALUE;
         }
 
         this.value = 0;
@@ -69,7 +69,7 @@ export class Case {
 
     private storeMutation(value: number): void {
         store.commit(EMutation.IncrementMoney, value);
-        store.commit(EMutation.AddBet, { id: this.id, val: -value });
+        store.commit(EMutation.AddBet, { id: this.id, value: -value });
         this.value -= value;
     }
 }

@@ -5,7 +5,7 @@
         <v-gain-history />
 
         <div class="block_body">
-            <v-wheel :play-button-hidden="playButton" @click="onClick" />
+            <v-wheel :play-button-hidden="playButton" @on-click="onClick" />
             <v-board :is-running="isRunning" :cases="cases" />
             <v-token-list />
         </div>
@@ -14,7 +14,7 @@
 
 <script lang="ts">
     import { Case } from "@/models/case";
-    import Gain from "@/models/gain";
+    import { Gain } from "@/models/gain";
     import { IBet } from "@/store/state";
     import { initCase } from "@/configs/board-utils";
     import { State } from "vuex-class";
@@ -70,13 +70,13 @@
             );
         }
 
-        private addGain(gain: number): void {
+        private addGain(value: number): void {
             const getters = store.getters as { totalMise: number };
             store.commit(
                 EMutation.AddGain,
                 new Gain(
                     this.wheelNumber,
-                    gain - getters.totalMise,
+                    value - getters.totalMise,
                     this.bets,
                     this.money
                 )

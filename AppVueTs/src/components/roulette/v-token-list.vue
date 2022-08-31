@@ -1,26 +1,15 @@
 <template>
-    <div class="block_somme">
-      <slot></slot>
+    <v-list
+        :items="tokenList"
+        @on-click="pickToken($event.value)"
+        :flexDirection="flexDirection"
+        :wight="wight"
 
-
-
-      <v-list>
-        <v-token
-          v-for="token in tokenList"
-          :key="token"
-          :value="token"
-          @click="pickToken(token)"
-        />
-      </v-list>
-
-
-      <v-list :items="tokenList" />
-
-
-      <v-list :items="tokenList" >
-        <v-token />
-      </v-list>
-    </div>
+    >
+        <template #item="{ item: token }">
+            <v-token :value="token.value" @on-click="pickToken(token.value)" />
+        </template>
+    </v-list>
 </template>
 
 <script lang="ts">
@@ -31,20 +20,15 @@
 
     @Component({ components: { "v-token": VToken } })
     export default class VTokenList extends Vue {
-        @State protected readonly tokenList!: number[];
+        @State protected readonly tokenList!: { id: number; value: number }[];
 
-        public pickToken(token: number): void {
-            store.commit(EMutation.PickToken, token);
+        public flexDirection = "column";
+        public wight = "10%";
+
+        public pickToken(tokenValue: number): void {
+            store.commit(EMutation.PickToken, tokenValue);
         }
     }
 </script>
 
-<style scoped>
-    .block_somme {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-items: center;
-        align-items: end;
-    }
-</style>
+<style scoped></style>

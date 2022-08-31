@@ -2,7 +2,8 @@
 const VBoard = async () => import("@/components/roulette/v-board.vue");
 const VCase = async () => import("@/components/roulette/v-case.vue");
 const VGain = async () => import("@/components/roulette/v-gain.vue");
-const VGainHistory = async () => import("@/components/roulette/v-gains-history.vue");
+const VGainHistory = async () =>
+    import("@/components/roulette/v-gains-history.vue");
 const VWheel = async () => import("@/components/roulette/v-wheel.vue");
 const VToken = async () => import("@/components/roulette/v-token.vue");
 const VTokenList = async () => import("@/components/roulette/v-token-list.vue");

@@ -1,6 +1,6 @@
 import { IBet } from "@/store/state";
 
-export default class Gain {
+export class Gain {
     public static idIndex = 0;
     private readonly _bets: IBet;
     private readonly _gain: number;

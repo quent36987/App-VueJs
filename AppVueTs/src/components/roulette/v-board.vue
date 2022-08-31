@@ -3,19 +3,16 @@
         <v-case
             v-for="elt in cases"
             :key="elt.id"
+            :case-model="elt"
             class="block_mise_1_item"
             :style="{
                 '--grid-col': elt.gridCol,
                 '--grid-row': elt.gridRow,
             }"
-            :title="elt.title"
-            :background-color="elt.backgroundColor"
-            :value="elt.value"
-            :highlight="elt.condition(wheelNumber) && !isRunning"
-            @click="elt.incrementValue(tokenSelected)"
-            @click_right="elt.decrementValue(tokenSelected)"
+            :highlight="elt.predicate(wheelNumber) && !isRunning"
+            @on-click="elt.incrementValue(tokenSelected)"
+            @on-click-right="elt.decrementValue(tokenSelected)"
         >
-            <template #title>{{ elt.title }}</template>
         </v-case>
     </div>
 </template>

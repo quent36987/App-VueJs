@@ -1,11 +1,13 @@
 <template>
-    <div class="gains">
-        <v-gain v-for="gain in gains" :key="gain.id" :gain="gain"> </v-gain>
-    </div>
+    <v-list :items="gains" :height="height">
+        <template #item="{ item: gain }">
+            <v-gain :gain="gain" />
+        </template>
+    </v-list>
 </template>
 
 <script lang="ts">
-    import Gain from "@/models/gain";
+    import { Gain } from "@/models/gain";
     import { State } from "vuex-class";
     import { VGain } from "@/components/roulette/index";
     import { Component, Vue } from "vue-property-decorator";
@@ -15,14 +17,8 @@
     })
     export default class VGainHistory extends Vue {
         @State protected readonly gains!: Gain[];
+
+        public height = "5vh";
     }
 </script>
-<style scoped>
-    .gains {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: left;
-        overflow: hidden;
-        height: 6vh;
-    }
-</style>
+<style scoped></style>

@@ -2,33 +2,34 @@
     <div
         class="case"
         :class="{ highlight: highlight }"
-        @click="$emit('click')"
+        @click="$emit('on-click')"
         @contextmenu.prevent
-        @click.right="$emit('click_right')"
-        :style="{
-            '--bg-color': `var(--${backgroundColor})`,
-        }"
+        @click.right="$emit('on-click-right')"
+        :style="style"
     >
-      <slot name="title"></slot>
-        <div class="block_mise_1_item_val" v-if="value > 0">
-            {{ value }}
+        {{ caseModel.title }}
+
+        <div class="block_mise" v-if="caseModel.value > 0">
+            {{ caseModel.value }}
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    // import { Case as toto } from "@/models/case";
+    import { Case as CaseModel } from "@/models/case";
+    import { IDict } from "@/utils/interfaces";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
     export default class Case extends Vue {
-        @Prop() protected readonly backgroundColor!: string;
+        @Prop() protected readonly caseModel!: CaseModel;
         @Prop() protected readonly highlight!: boolean;
-        @Prop() protected readonly title!: string;
-        @Prop() protected readonly value!: number;
 
-        // @Prop() protected readonly case!: toto;
-
+        protected get style(): IDict<string> {
+            return {
+                "--bg-color": `var(--${this.caseModel.backgroundColor})`,
+            };
+        }
     }
 </script>
 
@@ -38,7 +39,7 @@
         background-color: var(--bg-color);
     }
 
-    .block_mise_1_item_val {
+    .block_mise {
         background-color: cadetblue;
         width: 25px;
         height: 25px;

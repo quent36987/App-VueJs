@@ -7,8 +7,9 @@ export const getters = {
     betsId:
         (state: IStoreType): ((id: number) => number) =>
         (id: number): number => {
-            const bet = state.bets.find((elt): boolean => elt.id === id);
-            return bet ? bet.val : 0;
+            const betFind = state.bets.find((bet): boolean => bet.id === id);
+
+            return betFind ? betFind.value : 0;
         },
     money(state: IStoreType): number {
         return state.money;
@@ -18,10 +19,10 @@ export const getters = {
     },
     totalMise(state: IStoreType): number {
         let mise = 0;
-        for(const elt of state.bets)
-        {
-            mise += elt.val;
+        for (const elt of state.bets) {
+            mise += elt.value;
         }
+
         return mise;
     },
 };

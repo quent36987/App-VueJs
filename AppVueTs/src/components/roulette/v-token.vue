@@ -1,5 +1,5 @@
 <template>
-    <div class="block_somme_item" :style="style" @click="$emit('click')">
+    <div class="block_somme_item" :style="style" @click="$emit('on-click')">
         {{ value }}
     </div>
 </template>
@@ -15,9 +15,10 @@
         @Prop() protected readonly value!: number;
 
         protected get style(): IDict<string> {
+            const BG_COLOR = this.tokenSelected === this.value ? "#2df317" : "";
+
             return {
-                "--bg--color":
-                    this.tokenSelected === this.value ? "#2df317" : "",
+                "--bg--color": BG_COLOR,
             };
         }
     }

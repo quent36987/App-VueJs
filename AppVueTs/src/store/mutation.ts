@@ -1,5 +1,5 @@
-import Gain from "@/models/gain";
-import { IStoreType } from "@/store/state";
+import { Gain } from "@/models/gain";
+import { IBet, IStoreType } from "@/store/state";
 
 export const enum EMutation {
     AddBet = "addBet",
@@ -12,16 +12,15 @@ export const enum EMutation {
 }
 
 export const mutations = {
-    [EMutation.IncrementMoney](state: IStoreType, val: number): void {
-        state.money += val;
+    [EMutation.IncrementMoney](state: IStoreType, value: number): void {
+        state.money += value;
     },
-    [EMutation.AddBet](
-        state: IStoreType,
-        payload: { id: number; val: number }
-    ): void {
-        const bet = state.bets.find((elt): boolean => elt.id === payload.id);
-        if (bet) {
-            bet.val += payload.val;
+    [EMutation.AddBet](state: IStoreType, payload: IBet): void {
+        const betFind = state.bets.find(
+            (bet): boolean => bet.id === payload.id
+        );
+        if (betFind) {
+            betFind.value += payload.value;
         } else {
             state.bets.push(payload);
         }
