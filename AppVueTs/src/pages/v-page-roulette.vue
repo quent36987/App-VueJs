@@ -49,8 +49,6 @@
         @State protected readonly tokenSelected!: number;
         @State protected readonly wheelNumber!: number;
 
-        public checked = false;
-
         protected cases: Case[] = [];
         protected isRunning = true;
         protected playButton = true;
@@ -129,6 +127,7 @@
 
     .block_body {
         width: 100%;
+
         display: flex;
         align-items: flex-start;
     }

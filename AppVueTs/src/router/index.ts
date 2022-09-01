@@ -31,8 +31,7 @@ const routes: RouteConfig[] = [
     { path: "*", redirect: "/" },
 ];
 
-const router = new VueRouter({
+export const router = new VueRouter({
     routes,
 });
 
-export default router;

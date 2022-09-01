@@ -15,21 +15,29 @@ export interface IBet {
     id: number;
     value: number;
 }
+export interface IMessage {
+    message: string;
+    user: string;
+}
 
 export interface IStoreType {
     bets: IBet[];
     gains: Gain[];
+    messages: IMessage[];
     money: number;
     tokenList: { id: number; value: number }[];
     tokenSelected: number;
+    user: string;
     wheelNumber: number;
 }
 
 export const state: IStoreType = {
     bets: [],
     gains: [],
+    messages: [],
     money: MONEY_INIT,
     tokenList: tokenInit,
     tokenSelected: 1,
+    user: "",
     wheelNumber: 0,
 };

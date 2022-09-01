@@ -1,5 +1,5 @@
 import { Gain } from "@/models/gain";
-import { IBet, IStoreType } from "@/store/state";
+import { IBet, IMessage, IStoreType } from "@/store/state";
 
 export const enum EMutation {
     AddBet = "addBet",
@@ -9,6 +9,7 @@ export const enum EMutation {
     PickToken = "pickToken",
     SetWheelNumber = "setWheelNumber",
     SetMoney = "setMoney",
+    AddMessage = "addMessage",
 }
 
 export const mutations = {
@@ -39,5 +40,8 @@ export const mutations = {
     },
     [EMutation.SetMoney](state: IStoreType, value: number): void {
         state.money = value;
+    },
+    [EMutation.AddMessage](state: IStoreType, message: IMessage): void {
+        state.messages.unshift(message);
     },
 };

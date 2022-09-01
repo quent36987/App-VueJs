@@ -1,9 +1,6 @@
 const app = require('express')();
 const http = require('http').createServer(app);
-const jwt = require('jsonwebtoken');
 
-// jwt secret
-const JWT_SECRET = 'myRandomHash';
 
 let players = [];
 
@@ -23,17 +20,12 @@ app.get('/', (req, res) => {
 });
 
 io.use(async (socket, next) => {
-  // fetch token from handshake auth sent by FE
   const token = socket.handshake.auth.token;
   try {
-    // verify jwt token and get user data
-    const user = await jwt.verify(token, JWT_SECRET);
-    console.log('user', user);
-    // save the user data into socket object, to be used further
-    socket.user = user;
+    console.log('token', token);
+    socket.user = token;
     next();
   } catch (e) {
-    // if token is invalid, close connection
     console.log('error !', e.message);
     return next(new Error(e.message));
   }
@@ -41,26 +33,29 @@ io.use(async (socket, next) => {
 
 io.on('connection', (socket) => {
   // join user's own room
-  socket.join(socket.user.id);
+  //socket.join(socket.user.id);
   players.push(socket);
-  socket.join('myRandomChatRoomId');
-  // find user's all channels from the database and call join event on all of them.
+
+  socket.join('game');
+
   console.log('a user connected');
   socket.on('disconnect', () => {
-    players = players.filter((i) => i.socket.user.id !== socket.user.id )
+    players = players.filter((i) => i.user.id !== socket.user.id )
     console.log('user disconnected');
-  });
-  socket.on('my message', (msg) => {
-    console.log('message: ' + msg);
-    io.emit('my broadcast', `server: ${msg}`);
+    console.log('users remaining',players);
   });
 
-  socket.on('join', (roomName) => {
+  socket.on('message', (msg) => {
+    console.log('message: ' + msg.message + " from " + socket.user);
+    socket.broadcast.emit('message', {user : socket.user, message:msg.message});
+  });
+
+  /*socket.on('join', (roomName) => {
     console.log('join: ' + roomName);
     socket.join(roomName);
-  });
+  });*/
 
-  socket.on('message', ({message, roomName}, callback) => {
+  /*socket.on('message', ({message, roomName}, callback) => {
     console.log('message: ' + message + ' in ' + roomName);
 
     // generate data to send to receivers
@@ -76,7 +71,7 @@ io.on('connection', (socket) => {
     });
     // send to all including sender
     // io.to(roomName).emit('message', message);
-  })
+  })*/
 });
 
 http.listen(3000, () => {
