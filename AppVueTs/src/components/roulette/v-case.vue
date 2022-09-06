@@ -2,14 +2,14 @@
     <div
         class="case"
         :class="{ highlight: highlight }"
+        :style="style"
         @click="$emit('on-click')"
         @contextmenu.prevent
         @click.right="$emit('on-click-right')"
-        :style="style"
     >
         {{ caseModel.title }}
 
-        <div class="block_mise" v-if="caseModel.value > 0">
+        <div v-if="caseModel.value > 0" class="block-mise">
             {{ caseModel.value }}
         </div>
     </div>
@@ -18,12 +18,16 @@
 <script lang="ts">
     import { Case as CaseModel } from "@/models/case";
     import { IDict } from "@/utils/interfaces";
+    import { PropType } from "vue";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
     export default class Case extends Vue {
-        @Prop() protected readonly caseModel!: CaseModel;
-        @Prop() protected readonly highlight!: boolean;
+        @Prop({ required: true, type: Object as PropType<CaseModel> })
+        protected readonly caseModel!: CaseModel;
+
+        @Prop({ required: true, type: Boolean })
+        protected readonly highlight!: boolean;
 
         protected get style(): IDict<string> {
             return {
@@ -39,7 +43,7 @@
         background-color: var(--bg-color);
     }
 
-    .block_mise {
+    .block-mise {
         background-color: cadetblue;
         width: 25px;
         height: 25px;

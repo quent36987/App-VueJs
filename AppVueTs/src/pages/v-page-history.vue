@@ -20,6 +20,6 @@
     export default class VPageHistory extends Vue {
         @State protected readonly gains!: Gain[];
 
-        public flexDirection = "column";
+        protected flexDirection = "column";
     }
 </script>

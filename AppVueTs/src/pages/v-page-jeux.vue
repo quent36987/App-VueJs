@@ -4,6 +4,7 @@
             <router-link to="/jeux">Roulette</router-link> |
             <router-link to="/history">Historique</router-link>
         </nav>
+
         <router-view />
     </div>
 </template>
@@ -31,5 +32,18 @@
         min-width: 1000px;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    nav {
+        padding: 30px;
+    }
+
+    nav a {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    nav a.router-link-exact-active {
+        color: #42b983;
     }
 </style>

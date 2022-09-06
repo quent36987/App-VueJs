@@ -1,10 +1,9 @@
 <template>
     <v-list
         :items="tokenList"
-        @on-click="pickToken($event.value)"
         :flexDirection="flexDirection"
         :wight="wight"
-
+        @on-click="pickToken($event.value)"
     >
         <template #item="{ item: token }">
             <v-token :value="token.value" @on-click="pickToken(token.value)" />
@@ -22,10 +21,10 @@
     export default class VTokenList extends Vue {
         @State protected readonly tokenList!: { id: number; value: number }[];
 
-        public flexDirection = "column";
-        public wight = "10%";
+        protected flexDirection = "column";
+        protected wight = "10%";
 
-        public pickToken(tokenValue: number): void {
+        protected pickToken(tokenValue: number): void {
             store.commit(EMutation.PickToken, tokenValue);
         }
     }

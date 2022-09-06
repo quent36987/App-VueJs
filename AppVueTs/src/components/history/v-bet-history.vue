@@ -1,10 +1,11 @@
 <template>
     <div class="container">
         <div>
-            {{ textGain }}
+            {{ earning }}
         </div>
+
         <div class="number" :style="style">
-            <div class="number_center">{{ gain.value }}</div>
+            <div class="number-center">{{ gain.value }}</div>
         </div>
     </div>
 </template>
@@ -12,31 +13,31 @@
 <script lang="ts">
     import { Gain } from "@/models/gain";
     import { IDict } from "@/utils/interfaces";
+    import { PropType } from "vue";
     import { redNumber } from "@/configs/case-config";
     import { Component, Prop, Vue } from "vue-property-decorator";
+
     @Component
     export default class VBetHistory extends Vue {
-        @Prop() protected readonly gain!: Gain;
+        @Prop({ required: true, type: Object as PropType<Gain> })
+        protected readonly gain!: Gain;
 
-        protected get textGain(): string {
+        protected get earning(): string {
             return `${this.gain.gain > 0 ? "➕" : "➖"} ${Math.abs(
                 this.gain.gain
             )} (${this.gain.money}$)`;
         }
 
-        private bgColor(): string {
+        protected get backgroundColor(): string {
             if (this.gain.value === 0) {
                 return "green";
             }
-            if (redNumber.includes(this.gain.value)) {
-                return "red";
-            }
-            return "black";
+            return redNumber.includes(this.gain.value) ? "red" : "black";
         }
 
         protected get style(): IDict<string> {
             return {
-                "--bg-color": `var(--${this.bgColor()})`,
+                "--bg-color": `var(--${this.backgroundColor})`,
             };
         }
     }
@@ -51,7 +52,7 @@
         margin-bottom: 5px;
     }
 
-    .number_center {
+    .number-center {
         margin: auto;
     }
 

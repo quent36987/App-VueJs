@@ -25,6 +25,7 @@ export interface IStoreType {
     gains: Gain[];
     messages: IMessage[];
     money: number;
+    time: number;
     tokenList: { id: number; value: number }[];
     tokenSelected: number;
     user: string;
@@ -36,6 +37,7 @@ export const state: IStoreType = {
     gains: [],
     messages: [],
     money: MONEY_INIT,
+    time: 0,
     tokenList: tokenInit,
     tokenSelected: 1,
     user: "",

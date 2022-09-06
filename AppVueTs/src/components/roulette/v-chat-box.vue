@@ -38,7 +38,6 @@
 
 <style scoped>
     .chat-box {
-
         border: #1df387 1px solid;
     }
 </style>

@@ -6,7 +6,23 @@ import { io, Socket } from "socket.io-client";
 // eslint-disable-next-line @typescript-eslint/init-declarations,init-declarations
 export let socket: Socket;
 
+interface IInfo {
+    players: { money: number; user: string }[];
+    wheel: number;
+}
+
+function searchMyInfo(
+    info: IInfo
+): { money: number; user: string } | undefined {
+    return info.players.find((elt): boolean => elt.user === store.state.user);
+}
+
+// eslint-disable-next-line max-lines-per-function
 export function init(token: string): void {
+    store.state.user = token;
+    navigate("/jeux");
+    return;
+
     console.log("init");
     socket = io("http://localhost:3000", {
         auth: {
@@ -19,14 +35,18 @@ export function init(token: string): void {
         console.log("[onEvent]", event, ...args);
     });
 
-    socket.on("set_money", (money: number): void => {
+    socket.on("go", (money: number): void => {
         console.log(money);
     });
     socket.on("message", (objet: IMessage): void => {
         store.commit(EMutation.AddMessage, objet);
     });
-    socket.on("set_info_player", (info): void => {
-        console.log(info);
+    socket.on("result", (info: IInfo): void => {
+        store.commit(EMutation.SetWheelNumber, info.wheel);
+        const myInfo = searchMyInfo(info);
+        if (myInfo) {
+            store.commit(EMutation.SetMoney, myInfo.money);
+        }
     });
 
     socket.on("connect", (): void => {

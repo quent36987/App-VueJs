@@ -2,7 +2,31 @@ const app = require('express')();
 const http = require('http').createServer(app);
 
 
-let players = [];
+let players= [];
+let boucle = null;
+
+
+
+function play()
+{
+    const time_finish = Date.now() + 10000;
+
+    io.emit("go",{date: time_finish});
+
+    boucle = setTimeout(() =>
+    {
+        io.emit("result",{wheel: 10,players: [{money:24,user:"toto"}]});
+
+        setTimeout(() =>{
+            if(players.length > 0)
+            {
+                play();
+            }
+        },10000)
+
+    },10000)
+}
+
 
 const io = require("socket.io")(http, {
 	cors: {
@@ -35,12 +59,12 @@ io.on('connection', (socket) => {
   // join user's own room
   //socket.join(socket.user.id);
   players.push(socket);
+  console.log('users remaining',players);
 
-  socket.join('game');
-
+    play();
   console.log('a user connected');
   socket.on('disconnect', () => {
-    players = players.filter((i) => i.user.id !== socket.user.id )
+    players = players.filter((i) => i.user !== socket.user )
     console.log('user disconnected');
     console.log('users remaining',players);
   });

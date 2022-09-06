@@ -1,10 +1,10 @@
 <template>
-    <div class="block_mise_1">
+    <div class="board">
         <v-case
+            class="case"
             v-for="elt in cases"
             :key="elt.id"
             :case-model="elt"
-            class="block_mise_1_item"
             :style="{
                 '--grid-col': elt.gridCol,
                 '--grid-row': elt.gridRow,
@@ -19,6 +19,7 @@
 
 <script lang="ts">
     import { Case } from "@/models/case";
+    import { PropType } from "vue";
     import { State } from "vuex-class";
     import { VCase } from "@/components/roulette/index";
     import { Component, Prop, Vue } from "vue-property-decorator";
@@ -29,19 +30,23 @@
         },
     })
     export default class VBoard extends Vue {
-        @Prop() protected readonly cases!: Case[];
-        @Prop() protected readonly isRunning!: boolean;
+        @Prop({ required: true, type: Array as PropType<Case[]> })
+        protected readonly cases!: Case[];
+
+        @Prop({ required: true, type: Boolean })
+        protected readonly isRunning!: boolean;
+
         @State protected readonly tokenSelected!: number;
         @State protected readonly wheelNumber!: number;
     }
 </script>
 
 <style scoped>
-    .block_mise_1 {
+    .board {
+        display: grid;
         padding: 10px;
         margin: 50px 10px 10px;
         flex: 3;
-        display: grid;
         grid-template-columns: repeat(14, 1fr);
         justify-items: stretch;
         align-items: stretch;
@@ -54,11 +59,12 @@
         font-weight: bold;
     }
 
-    .block_mise_1_item {
+    .case {
         --grid-row: "";
         --grid-col: "";
         grid-column: var(--grid-col);
         grid-row: var(--grid-row);
+
         min-height: 40px;
         border: white 1px solid;
         display: flex;
@@ -66,7 +72,7 @@
         justify-content: center;
     }
 
-    .block_mise_1_item:hover {
+    .case:hover {
         background-color: #2df317;
     }
 </style>

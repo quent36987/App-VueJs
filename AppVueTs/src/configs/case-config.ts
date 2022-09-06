@@ -1,6 +1,6 @@
 import { isEven } from "@/utils/math";
 
-export const redNumber = [
+const redNumber = [
     /* eslint-disable @typescript-eslint/no-magic-numbers */
     1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36,
     /* eslint-enable @typescript-eslint/no-magic-numbers */
@@ -13,7 +13,7 @@ const MIDDLE_CASE = 18;
 
 const GRID_ROW = 3;
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-export const caseConfig = [
+const caseConfig = [
     {
         background: "green",
         factor: 36,
@@ -138,3 +138,5 @@ export const caseConfig = [
     },
 ];
 /* eslint-enable @typescript-eslint/no-magic-numbers */
+
+export { caseConfig, redNumber };

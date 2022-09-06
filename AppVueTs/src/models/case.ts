@@ -1,6 +1,6 @@
 import { EMutation, store } from "@/store";
 
-export class Case {
+class Case {
     public static idIndex = 0;
     public backgroundColor: string;
     public factor: number;
@@ -73,3 +73,4 @@ export class Case {
         this.value -= value;
     }
 }
+export { Case };

@@ -1,5 +1,5 @@
 <template>
-    <div class="block_roulette">
+    <div class="block-roulette">
         <div class="roulette" :style="styleWheel">
             {{ wheelNumber }}
         </div>
@@ -22,7 +22,9 @@
 
     @Component
     export default class VWheel extends Vue {
-        @Prop() protected readonly playButtonHidden!: boolean;
+        @Prop({ required: true, type: Boolean })
+        protected readonly playButtonHidden!: boolean;
+
         @State protected readonly wheelNumber!: number;
 
         protected get wheelColor(): string {
@@ -42,7 +44,7 @@
 </script>
 
 <style scoped>
-    .block_roulette {
+    .block-roulette {
         display: flex;
         flex-direction: column;
         padding: 10px;

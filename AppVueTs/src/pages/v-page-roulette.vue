@@ -4,7 +4,7 @@
 
         <v-gain-history />
 
-        <div class="block_body">
+        <div class="block-body">
             <v-wheel :play-button-hidden="playButton" @on-click="onClick" />
             <v-board :is-running="isRunning" :cases="cases" />
             <v-token-list />
@@ -76,15 +76,14 @@
 
         private addGain(value: number): void {
             const getters = store.getters as { totalMise: number };
-            store.commit(
-                EMutation.AddGain,
-                new Gain(
-                    this.wheelNumber,
-                    value - getters.totalMise,
-                    this.bets,
-                    this.money
-                )
+            const gain = new Gain(
+                this.wheelNumber,
+                value - getters.totalMise,
+                this.bets,
+                this.money
             );
+
+            store.commit(EMutation.AddGain, gain);
         }
 
         private async calculateResults(): Promise<void> {
@@ -125,9 +124,8 @@
         user-select: none;
     }
 
-    .block_body {
+    .block-body {
         width: 100%;
-
         display: flex;
         align-items: flex-start;
     }

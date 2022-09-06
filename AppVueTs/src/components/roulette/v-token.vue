@@ -1,5 +1,5 @@
 <template>
-    <div class="block_somme_item" :style="style" @click="$emit('on-click')">
+    <div class="token" :style="style" @click="$emit('on-click')">
         {{ value }}
     </div>
 </template>
@@ -12,7 +12,8 @@
     @Component
     export default class VToken extends Vue {
         @State protected readonly tokenSelected!: number;
-        @Prop() protected readonly value!: number;
+        @Prop({ required: true, type: Number })
+        protected readonly value!: number;
 
         protected get style(): IDict<string> {
             const BG_COLOR = this.tokenSelected === this.value ? "#2df317" : "";
@@ -25,9 +26,10 @@
 </script>
 
 <style scoped>
-    .block_somme_item {
+    .token {
         --bg--color: "";
         background-color: var(--bg--color);
+
         height: 50px;
         width: 50px;
         margin-bottom: 25px;
@@ -39,7 +41,7 @@
         padding: 10px;
     }
 
-    .block_somme_item:hover {
+    .token:hover {
         background-color: #2df317;
     }
 </style>

@@ -17,7 +17,7 @@ function initCaseConfig(cases: Case[]): void {
     }
 }
 
-export function initCase(): Case[] {
+function initCase(): Case[] {
     const cases: Case[] = [];
     const ROW = 3;
     const FACTOR = 36;
@@ -39,3 +39,5 @@ export function initCase(): Case[] {
 
     return cases;
 }
+
+export { initCase };
