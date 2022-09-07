@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <div class="v-header">
         <span>{{ money }}💲</span>
     </div>
 </template>
@@ -9,13 +9,13 @@
     import { Component, Vue } from "vue-property-decorator";
 
     @Component
-    export default class VHeader extends Vue {
+    export default class extends Vue {
         @State protected readonly money!: number;
     }
 </script>
 
 <style scoped>
-    .header {
+    .v-header {
         margin-top: 20px;
         width: 100%;
         height: 8vh;

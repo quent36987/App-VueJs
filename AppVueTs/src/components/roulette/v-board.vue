@@ -1,37 +1,31 @@
 <template>
-    <div class="board">
-        <v-case
-            class="case"
-            v-for="elt in cases"
-            :key="elt.id"
-            :case-model="elt"
-            :style="{
-                '--grid-col': elt.gridCol,
-                '--grid-row': elt.gridRow,
-            }"
-            :highlight="elt.predicate(wheelNumber) && !isRunning"
-            @on-click="elt.incrementValue(tokenSelected)"
-            @on-click-right="elt.decrementValue(tokenSelected)"
-        >
-        </v-case>
+    <div class="v-board">
+        <v-cell
+            v-for="cell in cells"
+            :key="cell.id"
+            :cell="cell"
+            :highlight="cell.predicate(wheelNumber) && !isRunning"
+            @click="cell.incrementValue(tokenSelected)"
+            @click-right="cell.decrementValue(tokenSelected)"
+        />
     </div>
 </template>
 
 <script lang="ts">
-    import { Case } from "@/models/case";
+    import { Cell } from "@/models/cell";
     import { PropType } from "vue";
     import { State } from "vuex-class";
-    import { VCase } from "@/components/roulette/index";
+    import { VCell } from "@/components/roulette/index";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component({
         components: {
-            "v-case": VCase,
+            "v-cell": VCell,
         },
     })
-    export default class VBoard extends Vue {
-        @Prop({ required: true, type: Array as PropType<Case[]> })
-        protected readonly cases!: Case[];
+    export default class extends Vue {
+        @Prop({ required: true, type: Array as PropType<Cell[]> })
+        protected readonly cells!: Cell[];
 
         @Prop({ required: true, type: Boolean })
         protected readonly isRunning!: boolean;
@@ -42,7 +36,7 @@
 </script>
 
 <style scoped>
-    .board {
+    .v-board {
         display: grid;
         padding: 10px;
         margin: 50px 10px 10px;
@@ -57,22 +51,5 @@
         width: 100%;
         font-size: 20px;
         font-weight: bold;
-    }
-
-    .case {
-        --grid-row: "";
-        --grid-col: "";
-        grid-column: var(--grid-col);
-        grid-row: var(--grid-row);
-
-        min-height: 40px;
-        border: white 1px solid;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .case:hover {
-        background-color: #2df317;
     }
 </style>

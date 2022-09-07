@@ -1,9 +1,9 @@
-import { Gain } from "@/models/gain";
+import { Round } from "@/models/round";
 import { IBet, IMessage, IStoreType } from "@/store/state";
 
-export const enum EMutation {
+export enum EMutation {
     AddBet = "addBet",
-    AddGain = "addGain",
+    AddRound = "addRound",
     IncrementMoney = "incrementMoney",
     ResetBet = "resetBet",
     PickToken = "pickToken",
@@ -29,12 +29,13 @@ export const mutations = {
     [EMutation.ResetBet](state: IStoreType): void {
         state.bets = [];
     },
+    [EMutation.AddRound](state: IStoreType, round: Round): void {
+        state.rounds.unshift(round);
+    },
     [EMutation.PickToken](state: IStoreType, token: number): void {
         state.tokenSelected = token;
     },
-    [EMutation.AddGain](state: IStoreType, gain: Gain): void {
-        state.gains.unshift(gain);
-    },
+
     [EMutation.SetWheelNumber](state: IStoreType, value: number): void {
         state.wheelNumber = value;
     },

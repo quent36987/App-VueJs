@@ -1,6 +1,6 @@
 <template>
-    <div class="list" :style="style">
-        <transition-group name="lists" tag="slot">
+    <div class="v-list" :style="style">
+        <transition-group name="transition" tag="slot">
             <div v-for="item of items" :key="item.id">
                 <slot name="item" :item="item"></slot>
             </div>
@@ -10,21 +10,31 @@
 
 <script lang="ts">
     import { IDict } from "@/utils/interfaces";
+    import { PropType } from "vue";
     import { VToken } from "@/components/roulette";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component({ components: { "v-token": VToken } })
-    export default class VList extends Vue {
-        @Prop() protected readonly alignItem!: string;
-        @Prop() protected readonly flexDirection!: string;
-        @Prop() protected readonly height!: string;
-        @Prop() protected readonly items!: any[];
-        @Prop() protected readonly wight!: string;
+    export default class extends Vue {
+        @Prop({ default: "", type: String })
+        protected readonly alignItem!: string;
+
+        @Prop({ default: false, type: Boolean })
+        protected readonly column!: boolean;
+
+        @Prop({ default: "auto", type: String })
+        protected readonly height!: string;
+
+        @Prop({ required: true, type: Array as PropType<any> })
+        protected readonly items!: any[];
+
+        @Prop({ default: "auto", type: String })
+        protected readonly wight!: string;
 
         protected get style(): IDict<string> {
             return {
                 "--align-item": this.alignItem,
-                "--flex-direction": this.flexDirection,
+                "--flex-direction": this.column ? "column" : "row",
                 "--height": this.height,
                 "--wight": this.wight,
             };
@@ -33,16 +43,17 @@
 </script>
 
 <style scoped>
-    .lists-enter-active,
-    .lists-leave-active {
+    .transition-enter-active,
+    .transition-leave-active {
         transition: all 1s;
     }
-    .lists-enter, .lists-leave-to /* .list-leave-active below version 2.1.8 */ {
+    .transition-enter,
+    .transition-leave-to {
         opacity: 0;
         transform: translateY(30px);
     }
 
-    .list {
+    .v-list {
         --flex-direction: row;
         --wight: "";
         --height: "";

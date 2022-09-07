@@ -1,7 +1,7 @@
 <template>
-    <v-list :items="rounds" height="5vh">
+    <v-list :items="rounds" column>
         <template #item="{ item: round }">
-            <v-gain :gain="round.gain" />
+            <v-round :round="round" />
         </template>
     </v-list>
 </template>
@@ -9,14 +9,17 @@
 <script lang="ts">
     import { Round } from "@/models/round";
     import { State } from "vuex-class";
-    import { VGain } from "@/components/roulette/index";
+    import { VRound } from "@/components/history";
     import { Component, Vue } from "vue-property-decorator";
 
     @Component({
-        components: { "v-gain": VGain },
+        components: {
+            "v-round": VRound,
+        },
     })
     export default class extends Vue {
         @State protected readonly rounds!: Round[];
     }
 </script>
+
 <style scoped></style>

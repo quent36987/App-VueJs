@@ -20,7 +20,7 @@ function searchMyInfo(
 // eslint-disable-next-line max-lines-per-function
 export function init(token: string): void {
     store.state.user = token;
-    navigate("/jeux");
+    navigate("/play");
     return;
 
     console.log("init");
@@ -52,7 +52,7 @@ export function init(token: string): void {
     socket.on("connect", (): void => {
         console.log("connected !");
         store.state.user = token;
-        navigate("/jeux");
+        navigate("/play");
     });
 }
 

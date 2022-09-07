@@ -1,25 +1,25 @@
 <template>
-    <div class="pages-jeux">
+    <div class="v-page-game">
         <nav>
-            <router-link to="/jeux">Roulette</router-link> |
-            <router-link to="/history">Historique</router-link>
+            <router-link to="/play">Wheel Game</router-link> |
+            <router-link to="/history">Round History</router-link>
         </nav>
 
         <router-view />
     </div>
 </template>
+
 <script lang="ts">
     import { navigate } from "@/router/utils";
     import { State } from "vuex-class";
     import { Component, Vue } from "vue-property-decorator";
 
     @Component
-    export default class VPageJeux extends Vue {
+    export default class extends Vue {
         @State protected readonly user!: string;
 
-        public mounted(): void {
+        protected mounted(): void {
             if (this.user === "") {
-                console.log(this.user);
                 navigate("/");
             }
         }
@@ -27,7 +27,7 @@
 </script>
 
 <style scoped>
-    .pages-jeux {
+    .v-page-game {
         max-width: 1400px;
         min-width: 1000px;
         margin-left: auto;

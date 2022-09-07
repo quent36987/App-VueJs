@@ -2,7 +2,7 @@
 const VPageRoulette = async () => import("@/pages/v-page-roulette.vue");
 const VPageHistory = async () => import("@/pages/v-page-history.vue");
 const VPageHome = async () => import("@/pages/v-page-home.vue");
-const VPageJeux = async () => import("@/pages/v-page-jeux.vue");
+const VPageGame = async () => import("@/pages/v-page-game.vue");
 /* eslint-enable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
 
-export { VPageRoulette, VPageHistory, VPageHome, VPageJeux };
+export { VPageRoulette, VPageHistory, VPageHome, VPageGame };

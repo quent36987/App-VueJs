@@ -1,6 +1,6 @@
 import { EMutation, store } from "@/store";
 
-class Case {
+class Cell {
     public static idIndex = 0;
     public backgroundColor: string;
     public factor: number;
@@ -19,18 +19,18 @@ class Case {
         gridRow: string,
         backgroundColor: string,
         value: number,
-        condition: (val: number) => boolean
+        predicate: (val: number) => boolean
     ) {
-        this._id = Case.idIndex;
+        this._id = Cell.idIndex;
         this.title = title;
         this.factor = factor;
         this.gridRow = gridRow;
         this.gridCol = gridCol;
         this.backgroundColor = backgroundColor;
         const getters = store.getters as { betsId(id: number): number };
-        this.value = value + getters.betsId(Case.idIndex);
-        this.predicate = condition;
-        Case.idIndex += 1;
+        this.value = value + getters.betsId(Cell.idIndex);
+        this.predicate = predicate;
+        Cell.idIndex += 1;
     }
 
     public get id(): number {
@@ -43,15 +43,8 @@ class Case {
         }
     }
 
-    public incrementValue(value: number): void {
-        const getters = store.getters as { money: number };
-        if (getters.money >= value) {
-            this.storeMutation(-value);
-        }
-    }
-
-    public result(value: number): number {
-        const CASE_VALUE = this.value;
+    public gainEarning(value: number): number {
+        const CELL_VALUE = this.value;
 
         if (this.predicate(value)) {
             const DELAY_DELETE_VALUE = 1500;
@@ -59,7 +52,7 @@ class Case {
                 this.value = 0;
             }, DELAY_DELETE_VALUE);
 
-            return this.factor * CASE_VALUE;
+            return this.factor * CELL_VALUE;
         }
 
         this.value = 0;
@@ -67,10 +60,17 @@ class Case {
         return 0;
     }
 
-    private storeMutation(value: number): void {
+    public incrementValue(value: number): void {
+        const getters = store.getters as { money: number };
+        if (getters.money >= value) {
+            this.storeMutation(-value);
+        }
+    }
+
+    protected storeMutation(value: number): void {
         store.commit(EMutation.IncrementMoney, value);
         store.commit(EMutation.AddBet, { id: this.id, value: -value });
         this.value -= value;
     }
 }
-export { Case };
+export { Cell };

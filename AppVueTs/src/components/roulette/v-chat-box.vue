@@ -1,17 +1,22 @@
 <template>
-    <div class="chat-box">
+    <div class="v-chat-box">
         <div>
             <input v-model="message" placeholder="edit me" />
             <button @click="addMessage">Send</button>
         </div>
-        <span>Message :</span>
-        <div v-for="message of messages.slice(0, 6)" :key="message.message">
-            {{ `${message.user}: ${message.message}` }}
+
+        <span>Messages :</span>
+        <div
+            v-for="message of messages.slice(0, displayedMessageCount)"
+            :key="message.message"
+        >
+            {{ message.user }}: {{ message.message }}
         </div>
     </div>
 </template>
 
 <script lang="ts">
+    import { DISPLAYED_MESSAGE_COUNT } from "@/configs/constants";
     import { IMessage } from "@/store/state";
     import { sendMessage } from "@/socket-setup";
     import { State } from "vuex-class";
@@ -19,13 +24,14 @@
     import { EMutation, store } from "@/store";
 
     @Component
-    export default class VWheel extends Vue {
+    export default class extends Vue {
         @State protected readonly messages!: IMessage[];
         @State protected readonly user!: string;
 
-        public message = "";
+        protected displayedMessageCount = DISPLAYED_MESSAGE_COUNT;
+        protected message = "";
 
-        public addMessage(): void {
+        protected addMessage(): void {
             sendMessage(this.message);
             store.commit(EMutation.AddMessage, {
                 message: this.message,
@@ -37,7 +43,7 @@
 </script>
 
 <style scoped>
-    .chat-box {
+    .v-chat-box {
         border: #1df387 1px solid;
     }
 </style>

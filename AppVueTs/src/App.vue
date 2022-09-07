@@ -6,10 +6,11 @@
 
 <style>
     #app {
-        --case-highlight: rgba(200, 210, 197, 0.3);
+        --cell-highlight: rgba(200, 210, 197, 0.3);
         --red: #ff3333;
         --green: #30570b;
         --black: black;
+        --cell-hover: #2df317;
 
         --column: column;
         --row: row;

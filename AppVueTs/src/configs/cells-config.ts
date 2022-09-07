@@ -1,4 +1,10 @@
 import { isEven } from "@/utils/math";
+import {
+    FIRST_TIER,
+    GRID_ROW,
+    MIDDLE_CELL,
+    SECOND_TIER,
+} from "@/configs/constants";
 
 const redNumber = [
     /* eslint-disable @typescript-eslint/no-magic-numbers */
@@ -6,14 +12,8 @@ const redNumber = [
     /* eslint-enable @typescript-eslint/no-magic-numbers */
 ];
 
-const FIRST_TIER = 12;
-const SECOND_TIER = 24;
-
-const MIDDLE_CASE = 18;
-
-const GRID_ROW = 3;
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-const caseConfig = [
+const cellsConfig = [
     {
         background: "green",
         factor: 36,
@@ -21,7 +21,6 @@ const caseConfig = [
         gridRow: "1/4",
         predicate: (value: number): boolean => value === 0,
         title: "0",
-        value: 0,
     },
     {
         background: "green",
@@ -30,7 +29,6 @@ const caseConfig = [
         gridRow: "",
         predicate: (value: number): boolean => value > 0 && value <= FIRST_TIER,
         title: "1st 12",
-        value: 0,
     },
     {
         background: "green",
@@ -40,7 +38,6 @@ const caseConfig = [
         predicate: (value: number): boolean =>
             value > FIRST_TIER && value <= SECOND_TIER,
         title: "2nd 12",
-        value: 0,
     },
     {
         background: "green",
@@ -49,7 +46,6 @@ const caseConfig = [
         gridRow: "",
         predicate: (value: number): boolean => value > SECOND_TIER,
         title: "3rd 12",
-        value: 0,
     },
     {
         background: "green",
@@ -57,9 +53,8 @@ const caseConfig = [
         gridCol: "2/4",
         gridRow: "",
         predicate: (value: number): boolean =>
-            value > 0 && value <= MIDDLE_CASE,
+            value > 0 && value <= MIDDLE_CELL,
         title: "1 To 18",
-        value: 0,
     },
     {
         background: "green",
@@ -68,7 +63,6 @@ const caseConfig = [
         gridRow: "",
         predicate: (value: number): boolean => isEven(value) && value !== 0,
         title: "EVEN",
-        value: 0,
     },
     {
         background: "red",
@@ -77,7 +71,6 @@ const caseConfig = [
         gridRow: "",
         predicate: (value: number): boolean => redNumber.includes(value),
         title: "R",
-        value: 0,
     },
     {
         background: "black",
@@ -87,7 +80,6 @@ const caseConfig = [
         predicate: (value: number): boolean =>
             !redNumber.includes(value) && value !== 0,
         title: "B",
-        value: 0,
     },
     {
         background: "green",
@@ -96,16 +88,14 @@ const caseConfig = [
         gridRow: "",
         predicate: (value: number): boolean => !isEven(value),
         title: "ODD",
-        value: 0,
     },
     {
         background: "green",
         factor: 2,
         gridCol: "12/14",
         gridRow: "",
-        predicate: (value: number): boolean => value > MIDDLE_CASE,
+        predicate: (value: number): boolean => value > MIDDLE_CELL,
         title: "19 To 36",
-        value: 0,
     },
     {
         background: "green",
@@ -115,7 +105,6 @@ const caseConfig = [
         predicate: (value: number): boolean =>
             value % GRID_ROW === 0 && value !== 0,
         title: "2to1",
-        value: 0,
     },
     {
         background: "green",
@@ -124,7 +113,6 @@ const caseConfig = [
         gridRow: "2",
         predicate: (value: number): boolean => (value + 1) % GRID_ROW === 0,
         title: "2to1",
-        value: 0,
     },
     {
         background: "green",
@@ -134,9 +122,8 @@ const caseConfig = [
         predicate: (value: number): boolean =>
             (value + GRID_ROW - 1) % GRID_ROW === 0,
         title: "2to1",
-        value: 0,
     },
 ];
 /* eslint-enable @typescript-eslint/no-magic-numbers */
 
-export { caseConfig, redNumber };
+export { cellsConfig, redNumber };

@@ -1,5 +1,5 @@
 <template>
-    <div class="token" :style="style" @click="$emit('on-click')">
+    <div class="v-token" :style="style" @click="$emit('click')">
         {{ value }}
     </div>
 </template>
@@ -10,13 +10,15 @@
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
-    export default class VToken extends Vue {
+    export default class extends Vue {
         @State protected readonly tokenSelected!: number;
+
         @Prop({ required: true, type: Number })
         protected readonly value!: number;
 
         protected get style(): IDict<string> {
-            const BG_COLOR = this.tokenSelected === this.value ? "#2df317" : "";
+            const BG_COLOR =
+                this.tokenSelected === this.value ? "--cell-hover" : "";
 
             return {
                 "--bg--color": BG_COLOR,
@@ -26,7 +28,7 @@
 </script>
 
 <style scoped>
-    .token {
+    .v-token {
         --bg--color: "";
         background-color: var(--bg--color);
 
@@ -41,7 +43,7 @@
         padding: 10px;
     }
 
-    .token:hover {
+    .v-token:hover {
         background-color: #2df317;
     }
 </style>

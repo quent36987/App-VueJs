@@ -1,12 +1,7 @@
 <template>
-    <v-list
-        :items="tokenList"
-        :flexDirection="flexDirection"
-        :wight="wight"
-        @on-click="pickToken($event.value)"
-    >
+    <v-list :items="tokens" column wight="10%" @click="pickToken($event.value)">
         <template #item="{ item: token }">
-            <v-token :value="token.value" @on-click="pickToken(token.value)" />
+            <v-token :value="token.value" @click="pickToken(token.value)" />
         </template>
     </v-list>
 </template>
@@ -18,11 +13,8 @@
     import { EMutation, store } from "@/store";
 
     @Component({ components: { "v-token": VToken } })
-    export default class VTokenList extends Vue {
-        @State protected readonly tokenList!: { id: number; value: number }[];
-
-        protected flexDirection = "column";
-        protected wight = "10%";
+    export default class extends Vue {
+        @State protected readonly tokens!: { id: number; value: number }[];
 
         protected pickToken(tokenValue: number): void {
             store.commit(EMutation.PickToken, tokenValue);

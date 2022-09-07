@@ -1,25 +1,17 @@
 <template>
-    <v-list :items="gains" :flexDirection="flexDirection">
-        <template #item="{ item: gain }">
-            <v-bet-history :gain="gain" />
-        </template>
-    </v-list>
+    <v-rounds-history />
 </template>
 
 <script lang="ts">
-    import { Gain } from "@/models/gain";
-    import { State } from "vuex-class";
-    import { VBetHistory } from "@/components/history";
+    import { VRoundsHistory } from "@/components/history";
     import { Component, Vue } from "vue-property-decorator";
 
     @Component({
         components: {
-            "v-bet-history": VBetHistory,
+            "v-rounds-history": VRoundsHistory,
         },
     })
-    export default class VPageHistory extends Vue {
-        @State protected readonly gains!: Gain[];
-
-        protected flexDirection = "column";
-    }
+    export default class extends Vue {}
 </script>
+
+<style scoped></style>

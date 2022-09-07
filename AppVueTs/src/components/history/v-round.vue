@@ -1,38 +1,38 @@
 <template>
-    <div class="container">
+    <div class="v-round">
         <div>
             {{ earning }}
         </div>
 
         <div class="number" :style="style">
-            <div class="number-center">{{ gain.value }}</div>
+            <div class="number-center">{{ round.wheelNumber }}</div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import { Gain } from "@/models/gain";
     import { IDict } from "@/utils/interfaces";
     import { PropType } from "vue";
-    import { redNumber } from "@/configs/case-config";
+    import { redNumber } from "@/configs/cells-config";
+    import { Round } from "@/models/round";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
-    export default class VBetHistory extends Vue {
-        @Prop({ required: true, type: Object as PropType<Gain> })
-        protected readonly gain!: Gain;
+    export default class extends Vue {
+        @Prop({ required: true, type: Object as PropType<Round> })
+        protected readonly round!: Round;
 
         protected get earning(): string {
-            return `${this.gain.gain > 0 ? "➕" : "➖"} ${Math.abs(
-                this.gain.gain
-            )} (${this.gain.money}$)`;
+            return `${this.round.gain > 0 ? "➕" : "➖"} ${Math.abs(
+                this.round.gain
+            )} (${this.round.money}$)`;
         }
 
         protected get backgroundColor(): string {
-            if (this.gain.value === 0) {
+            if (this.round.wheelNumber === 0) {
                 return "green";
             }
-            return redNumber.includes(this.gain.value) ? "red" : "black";
+            return redNumber.includes(this.round.wheelNumber) ? "red" : "black";
         }
 
         protected get style(): IDict<string> {
@@ -44,7 +44,7 @@
 </script>
 
 <style scoped>
-    .container {
+    .v-round {
         display: flex;
         justify-content: center;
         align-items: center;

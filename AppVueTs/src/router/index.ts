@@ -2,36 +2,43 @@
 const VPageRoulette = async () => import("@/pages/v-page-roulette.vue");
 const VPageHistory = async () => import("@/pages/v-page-history.vue");
 const VPageHome = async () => import("@/pages/v-page-home.vue");
-const VPageJeux = async () => import("@/pages/v-page-jeux.vue");
+const VPageGame = async () => import("@/pages/v-page-game.vue");
 /* eslint-enable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
 Vue.use(VueRouter);
 
+const routesGame: RouteConfig[] = [
+    {
+        component: VPageRoulette,
+        name: "wheel-page",
+        path: "/play",
+    },
+    {
+        component: VPageHistory,
+        name: "rounds-history-page",
+        path: "/history",
+    },
+];
+
 const routes: RouteConfig[] = [
     {
         component: VPageHome,
-        name: "home",
+        name: "home-page",
         path: "/",
     },
     {
-        children: [
-            { component: VPageHistory, name: "history", path: "/history" },
-            {
-                component: VPageRoulette,
-                name: "roulette",
-                path: "/jeux",
-            },
-        ],
-        component: VPageJeux,
-        name: "jeux",
-        path: "/jeux",
+        children: routesGame,
+        component: VPageGame,
+        name: "game-page",
+        path: "/play",
     },
     { path: "*", redirect: "/" },
 ];
 
-export const router = new VueRouter({
+const router = new VueRouter({
     routes,
 });
 
+export { router };

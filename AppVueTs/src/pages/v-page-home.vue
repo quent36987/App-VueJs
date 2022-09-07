@@ -1,8 +1,9 @@
 <template>
-    <div class="home">
-        <div>jouons tous ensemble a un PETIT JEUUUUUXXXXX</div>
+    <div class="v-page-home">
+        <div>let's all play together a LITTLE GAAAMMMEEE</div>
+
         <input v-model="username" placeholder="username" />
-        <button v-show="username !== ''" @click="onClick">Let's Go !</button>
+        <button v-show="username !== ''" @click="login">Let's Go !</button>
     </div>
 </template>
 
@@ -11,17 +12,17 @@
     import { Component, Vue } from "vue-property-decorator";
 
     @Component
-    export default class VPageHome extends Vue {
-        public username = "";
+    export default class extends Vue {
+        protected username = "";
 
-        public onClick(): void {
+        protected login(): void {
             init(this.username);
         }
     }
 </script>
 
 <style scoped>
-    .home {
+    .v-page-home {
         margin-top: 50px;
         font-size: 25px;
     }

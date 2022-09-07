@@ -1,14 +1,10 @@
 <template>
-    <div class="block-roulette">
-        <div class="roulette" :style="styleWheel">
+    <div class="v-wheel-box">
+        <div class="wheel" :style="styleWheel">
             {{ wheelNumber }}
         </div>
 
-        <button
-            v-show="playButtonHidden"
-            class="play"
-            @click="$emit('on-click')"
-        >
+        <button v-show="showButton" class="button" @click="$emit('click')">
             Play
         </button>
     </div>
@@ -16,14 +12,14 @@
 
 <script lang="ts">
     import { IDict } from "@/utils/interfaces";
-    import { redNumber } from "@/configs/case-config";
+    import { redNumber } from "@/configs/cells-config";
     import { State } from "vuex-class";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
-    export default class VWheel extends Vue {
+    export default class extends Vue {
         @Prop({ required: true, type: Boolean })
-        protected readonly playButtonHidden!: boolean;
+        protected readonly showButton!: boolean;
 
         @State protected readonly wheelNumber!: number;
 
@@ -44,7 +40,7 @@
 </script>
 
 <style scoped>
-    .block-roulette {
+    .v-wheel-box {
         display: flex;
         flex-direction: column;
         padding: 10px;
@@ -54,7 +50,7 @@
         align-items: center;
     }
 
-    .roulette {
+    .wheel {
         --bg-color: pink;
         background-color: var(--bg-color);
 
@@ -68,7 +64,7 @@
         font-size: 4em;
     }
 
-    .play {
+    .button {
         --hidden: none;
         visibility: var(--hidden);
 

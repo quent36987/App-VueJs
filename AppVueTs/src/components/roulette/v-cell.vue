@@ -1,49 +1,62 @@
 <template>
     <div
-        class="case"
-        :class="{ highlight: highlight }"
+        class="v-cell"
+        :class="{ highlight }"
         :style="style"
-        @click="$emit('on-click')"
+        @click="$emit('click')"
         @contextmenu.prevent
-        @click.right="$emit('on-click-right')"
+        @click.right="$emit('click-right')"
     >
-        {{ caseModel.title }}
+        {{ cell.title }}
 
-        <div v-if="caseModel.value > 0" class="block-mise">
-            {{ caseModel.value }}
+        <div v-if="cell.value > 0" class="wheel-number">
+            {{ cell.value }}
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import { Case as CaseModel } from "@/models/case";
+    import { Cell } from "@/models/cell";
     import { IDict } from "@/utils/interfaces";
     import { PropType } from "vue";
     import { Component, Prop, Vue } from "vue-property-decorator";
 
     @Component
-    export default class Case extends Vue {
-        @Prop({ required: true, type: Object as PropType<CaseModel> })
-        protected readonly caseModel!: CaseModel;
+    export default class extends Vue {
+        @Prop({ required: true, type: Object as PropType<Cell> })
+        protected readonly cell!: Cell;
 
         @Prop({ required: true, type: Boolean })
         protected readonly highlight!: boolean;
 
         protected get style(): IDict<string> {
             return {
-                "--bg-color": `var(--${this.caseModel.backgroundColor})`,
+                "--bg-color": `var(--${this.cell.backgroundColor})`,
+                "--grid-col": this.cell.gridCol,
+                "--grid-row": this.cell.gridRow,
             };
         }
     }
 </script>
 
 <style scoped>
-    .case {
+    .v-cell {
         --bg-color: pink;
+        --grid-row: "";
+        --grid-col: "";
+
+        grid-column: var(--grid-col);
+        grid-row: var(--grid-row);
         background-color: var(--bg-color);
+
+        min-height: 40px;
+        border: white 1px solid;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .block-mise {
+    .wheel-number {
         background-color: cadetblue;
         width: 25px;
         height: 25px;
@@ -53,9 +66,13 @@
         position: absolute;
     }
 
-    .case.highlight {
+    .v-cell.highlight {
         animation-name: blink;
         animation-duration: 5s;
+    }
+
+    .v-cell:hover {
+        background-color: var(--cell-hover);
     }
 
     @keyframes blink {
@@ -63,7 +80,7 @@
             background-color: var(--bg-color);
         }
         40% {
-            background-color: var(--case-highlight);
+            background-color: var(--cell-highlight);
         }
         100% {
             background-color: var(--bg-color);

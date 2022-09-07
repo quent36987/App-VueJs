@@ -1,12 +1,12 @@
 <template>
-    <div class="app">
+    <div class="v-page-roulette">
         <v-header />
 
-        <v-gain-history />
+        <v-gains-history />
 
         <div class="block-body">
-            <v-wheel :play-button-hidden="playButton" @on-click="onClick" />
-            <v-board :is-running="isRunning" :cases="cases" />
+            <v-wheel-box :show-button="showButtonPlay" @click="runWheel" />
+            <v-board :is-running="isRunning" :cells="cells" />
             <v-token-list />
         </div>
 
@@ -15,105 +15,104 @@
 </template>
 
 <script lang="ts">
-    import { Case } from "@/models/case";
-    import { Gain } from "@/models/gain";
+    import { Cell } from "@/models/cell";
     import { IBet } from "@/store/state";
-    import { initCase } from "@/configs/board-utils";
+    import { initCells } from "@/configs/board-utils";
+    import { Round } from "@/models/round";
     import { State } from "vuex-class";
     import { Component, Vue } from "vue-property-decorator";
+    import {
+        DELAY_HIDDEN_PLAY_BUTTON,
+        DELAY_RESULT,
+        MAX_NUMBER_WHEEL,
+        MIN_NUMBER_WHEEL,
+    } from "@/configs/constants";
     import { EMutation, store } from "@/store";
+    import { randomNumber, tableSum } from "@/utils/math";
     import {
         VBoard,
-        VCase,
         VChatBox,
-        VGainHistory,
+        VGainsHistory,
         VHeader,
         VTokenList,
-        VWheel,
+        VWheelBox,
     } from "@/components/roulette";
 
     @Component({
         components: {
             "v-board": VBoard,
-            "v-case": VCase,
             "v-chat-box": VChatBox,
-            "v-gain-history": VGainHistory,
+            "v-gains-history": VGainsHistory,
             "v-header": VHeader,
             "v-token-list": VTokenList,
-            "v-wheel": VWheel,
+            "v-wheel-box": VWheelBox,
         },
     })
-    export default class PageRoulette extends Vue {
+    export default class extends Vue {
         @State protected readonly bets!: IBet;
         @State protected readonly money!: number;
         @State protected readonly tokenSelected!: number;
         @State protected readonly wheelNumber!: number;
 
-        protected cases: Case[] = [];
+        protected cells: Cell[] = [];
         protected isRunning = true;
-        protected playButton = true;
+        protected showButtonPlay = true;
 
-        public mounted(): void {
-            this.cases = initCase();
+        protected mounted(): void {
+            this.cells = initCells();
         }
 
-        /** Run the wheel */
-        public onClick(): void {
+        protected runWheel(): void {
             this.isRunning = true;
-            this.playButton = false;
-            const DELAY_HIDDEN_PLAY_BUTTON = 1800;
-            const DELAY_RESULT = 500;
+            this.showButtonPlay = false;
 
             setTimeout((): void => {
-                this.playButton = true;
+                this.showButtonPlay = true;
             }, DELAY_HIDDEN_PLAY_BUTTON);
 
-            setTimeout(
-                async (): Promise<void> => this.calculateResults(),
-                DELAY_RESULT
-            );
+            setTimeout(async (): Promise<void> => {
+                return this.calculateResults();
+            }, DELAY_RESULT);
         }
 
         private addGain(value: number): void {
             const getters = store.getters as { totalMise: number };
-            const gain = new Gain(
+            const round = new Round(
                 this.wheelNumber,
                 value - getters.totalMise,
                 this.bets,
                 this.money
             );
 
-            store.commit(EMutation.AddGain, gain);
+            store.commit(EMutation.AddRound, round);
         }
 
         private async calculateResults(): Promise<void> {
-            const NUMBER_NUM_WHEEL = 36;
             this.isRunning = false;
 
-            store.commit(
-                EMutation.SetWheelNumber,
-                Math.floor(Math.random() * (NUMBER_NUM_WHEEL + 1))
+            const WHEEL_NUMBER = randomNumber(
+                MIN_NUMBER_WHEEL,
+                MAX_NUMBER_WHEEL
             );
 
-            const results = [];
-            for (const bet of this.cases) {
-                results.push(bet.result(this.wheelNumber));
+            const cellsEarning = [];
+            for (const cell of this.cells) {
+                cellsEarning.push(cell.gainEarning(WHEEL_NUMBER));
             }
 
-            const tab = await Promise.all(results);
-            const GAIN = tab.reduce(
-                (accumulator, curr): number => accumulator + curr
-            );
+            const TOTAL_GAIN = tableSum(await Promise.all(cellsEarning));
 
-            store.commit(EMutation.IncrementMoney, GAIN);
-            this.addGain(GAIN);
+            store.commit(EMutation.SetWheelNumber, WHEEL_NUMBER);
+            this.addGain(TOTAL_GAIN);
+
+            store.commit(EMutation.IncrementMoney, TOTAL_GAIN);
             store.commit(EMutation.ResetBet);
         }
     }
 </script>
 
 <style scoped>
-    .app {
+    .v-page-roulette {
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
