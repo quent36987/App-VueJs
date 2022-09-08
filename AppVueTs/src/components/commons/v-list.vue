@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts">
-    import { IDict } from "@/utils/interfaces";
     import { PropType } from "vue";
     import { VToken } from "@/components/roulette";
     import { Component, Prop, Vue } from "vue-property-decorator";
+    import { IDict, IListItem } from "@/utils/interfaces";
 
     @Component({ components: { "v-token": VToken } })
     export default class extends Vue {
@@ -25,8 +25,8 @@
         @Prop({ default: "auto", type: String })
         protected readonly height!: string;
 
-        @Prop({ required: true, type: Array as PropType<any> })
-        protected readonly items!: any[];
+        @Prop({ required: true, type: Array as PropType<IListItem[]> })
+        protected readonly items!: IListItem[];
 
         @Prop({ default: "auto", type: String })
         protected readonly wight!: string;
@@ -47,6 +47,7 @@
     .transition-leave-active {
         transition: all 1s;
     }
+
     .transition-enter,
     .transition-leave-to {
         opacity: 0;
@@ -55,18 +56,18 @@
 
     .v-list {
         --flex-direction: row;
-        --wight: "";
-        --height: "";
+        --wight: auto;
+        --height: auto;
         --align-item: center;
 
+        display: flex;
         flex-direction: var(--flex-direction);
+        justify-content: left;
+        align-items: var(--align-item);
+        flex-wrap: nowrap;
+
         width: var(--wight);
         height: var(--height);
-        align-items: var(--align-item);
-
-        display: flex;
-        flex-wrap: nowrap;
         overflow: hidden;
-        justify-content: left;
     }
 </style>

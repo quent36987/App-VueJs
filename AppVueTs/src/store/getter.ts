@@ -1,6 +1,6 @@
 import { IBet, IStoreType } from "@/store/state";
 
-export const getters = {
+const getters = {
     bets(state: IStoreType): IBet[] {
         return state.bets;
     },
@@ -15,9 +15,9 @@ export const getters = {
         return state.money;
     },
     tokenSelected(state: IStoreType): number {
-        return state.tokenSelected;
+        return state.selectedToken;
     },
-    totalMise(state: IStoreType): number {
+    totalBet(state: IStoreType): number {
         let mise = 0;
         for (const elt of state.bets) {
             mise += elt.value;
@@ -26,3 +26,5 @@ export const getters = {
         return mise;
     },
 };
+
+export { getters };

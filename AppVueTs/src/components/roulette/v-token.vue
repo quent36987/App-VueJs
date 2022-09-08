@@ -11,14 +11,14 @@
 
     @Component
     export default class extends Vue {
-        @State protected readonly tokenSelected!: number;
+        @State protected readonly selectedToken!: number;
 
         @Prop({ required: true, type: Number })
         protected readonly value!: number;
 
         protected get style(): IDict<string> {
             const BG_COLOR =
-                this.tokenSelected === this.value ? "--cell-hover" : "";
+                this.selectedToken === this.value ? "var(--cell-hover)" : "";
 
             return {
                 "--bg--color": BG_COLOR,
@@ -30,20 +30,21 @@
 <style scoped>
     .v-token {
         --bg--color: "";
-        background-color: var(--bg--color);
 
         height: 50px;
         width: 50px;
-        margin-bottom: 25px;
-        font-size: 24px;
+
+        background-color: var(--bg--color);
         border-radius: 25px;
         border: black 2px dashed;
-        margin-right: 25px;
+        font-size: 24px;
         font-weight: bold;
+        margin-bottom: 25px;
+        margin-right: 25px;
         padding: 10px;
     }
 
     .v-token:hover {
-        background-color: #2df317;
+        background-color: var(--cell-hover);
     }
 </style>

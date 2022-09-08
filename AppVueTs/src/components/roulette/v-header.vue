@@ -16,9 +16,10 @@
 
 <style scoped>
     .v-header {
-        margin-top: 20px;
         width: 100%;
         height: 8vh;
+
+        margin-top: 20px;
         font-size: 40px;
     }
 </style>

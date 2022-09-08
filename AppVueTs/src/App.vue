@@ -11,13 +11,10 @@
         --green: #30570b;
         --black: black;
         --cell-hover: #2df317;
-
         --column: column;
         --row: row;
 
         font-family: Avenir, Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         text-align: center;
     }
 </style>

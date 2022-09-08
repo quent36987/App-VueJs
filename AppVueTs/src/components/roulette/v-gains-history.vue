@@ -19,4 +19,5 @@
         @State protected readonly rounds!: Round[];
     }
 </script>
+
 <style scoped></style>

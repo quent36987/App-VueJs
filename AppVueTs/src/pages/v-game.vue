@@ -1,7 +1,7 @@
 <template>
-    <div class="v-page-game">
+    <div class="v-game">
         <nav>
-            <router-link to="/play">Wheel Game</router-link> |
+            <router-link to="/game">Wheel Game</router-link> |
             <router-link to="/history">Round History</router-link>
         </nav>
 
@@ -27,9 +27,10 @@
 </script>
 
 <style scoped>
-    .v-page-game {
+    .v-game {
         max-width: 1400px;
         min-width: 1000px;
+
         margin-left: auto;
         margin-right: auto;
     }

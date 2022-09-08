@@ -1,6 +1,6 @@
 <template>
     <div class="v-wheel-box">
-        <div class="wheel" :style="styleWheel">
+        <div class="wheel" :style="style">
             {{ wheelNumber }}
         </div>
 
@@ -31,7 +31,7 @@
             return redNumber.includes(this.wheelNumber) ? "red" : "black";
         }
 
-        protected get styleWheel(): IDict<string> {
+        protected get style(): IDict<string> {
             return {
                 "--bg-color": `var(--${this.wheelColor})`,
             };
@@ -41,38 +41,43 @@
 
 <style scoped>
     .v-wheel-box {
+        flex: 1;
         display: flex;
         flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+        height: 50vh;
         padding: 10px;
         margin: 10px;
-        flex: 1;
-        height: 50vh;
-        align-items: center;
     }
 
     .wheel {
         --bg-color: pink;
-        background-color: var(--bg-color);
 
         display: inline-block;
-        color: white;
+
         width: 200px;
         height: 200px;
+
+        background-color: var(--bg-color);
         border-radius: 50%;
-        text-align: center;
-        line-height: 3em;
+        color: white;
         font-size: 4em;
+        line-height: 3em;
+        text-align: center;
     }
 
     .button {
         --hidden: none;
-        visibility: var(--hidden);
 
-        border: black 1px solid;
         height: 35px;
         width: 80%;
+
         border-radius: 5px;
+        border: black 1px solid;
         font-size: large;
         margin-top: 20px;
+        visibility: var(--hidden);
     }
 </style>

@@ -1,7 +1,7 @@
 import { Round } from "@/models/round";
 import { IBet, IMessage, IStoreType } from "@/store/state";
 
-export enum EMutation {
+enum EMutation {
     AddBet = "addBet",
     AddRound = "addRound",
     IncrementMoney = "incrementMoney",
@@ -12,7 +12,7 @@ export enum EMutation {
     AddMessage = "addMessage",
 }
 
-export const mutations = {
+const mutations = {
     [EMutation.IncrementMoney](state: IStoreType, value: number): void {
         state.money += value;
     },
@@ -33,7 +33,7 @@ export const mutations = {
         state.rounds.unshift(round);
     },
     [EMutation.PickToken](state: IStoreType, token: number): void {
-        state.tokenSelected = token;
+        state.selectedToken = token;
     },
 
     [EMutation.SetWheelNumber](state: IStoreType, value: number): void {
@@ -46,3 +46,5 @@ export const mutations = {
         state.messages.unshift(message);
     },
 };
+
+export { EMutation, mutations };

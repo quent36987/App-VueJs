@@ -1,6 +1,6 @@
 <template>
-    <div class="v-page-home">
-        <div>let's all play together a LITTLE GAAAMMMEEE</div>
+    <div class="v-home">
+        <div>let's all play together a LITTLE GAME</div>
 
         <input v-model="username" placeholder="username" />
         <button v-show="username !== ''" @click="login">Let's Go !</button>
@@ -22,7 +22,7 @@
 </script>
 
 <style scoped>
-    .v-page-home {
+    .v-home {
         margin-top: 50px;
         font-size: 25px;
     }

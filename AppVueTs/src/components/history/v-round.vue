@@ -23,9 +23,10 @@
         protected readonly round!: Round;
 
         protected get earning(): string {
-            return `${this.round.gain > 0 ? "➕" : "➖"} ${Math.abs(
-                this.round.gain
-            )} (${this.round.money}$)`;
+            const PREFIX_GAIN = this.round.gain > 0 ? "➕" : "➖";
+            const GAIN_ABS = Math.abs(this.round.gain);
+
+            return `${PREFIX_GAIN} ${GAIN_ABS} (${this.round.money}$)`;
         }
 
         protected get backgroundColor(): string {
@@ -46,10 +47,13 @@
 <style scoped>
     .v-round {
         display: flex;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+
         margin-bottom: 5px;
+
+        gap: 10px;
     }
 
     .number-center {
@@ -58,11 +62,17 @@
 
     .number {
         --bg-color: pink;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        height: 30px;
+        width: 30px;
+
         background-color: var(--bg-color);
         color: white;
         border-radius: 100%;
-        height: 30px;
-        width: 30px;
-        display: flex;
     }
 </style>

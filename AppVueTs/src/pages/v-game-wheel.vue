@@ -1,5 +1,5 @@
 <template>
-    <div class="v-page-roulette">
+    <div class="v-game-wheel">
         <v-header />
 
         <v-gains-history />
@@ -51,7 +51,7 @@
     export default class extends Vue {
         @State protected readonly bets!: IBet;
         @State protected readonly money!: number;
-        @State protected readonly tokenSelected!: number;
+        @State protected readonly selectedToken!: number;
         @State protected readonly wheelNumber!: number;
 
         protected cells: Cell[] = [];
@@ -76,10 +76,10 @@
         }
 
         private addGain(value: number): void {
-            const getters = store.getters as { totalMise: number };
+            const getters = store.getters as { totalBet: number };
             const round = new Round(
                 this.wheelNumber,
-                value - getters.totalMise,
+                value - getters.totalBet,
                 this.bets,
                 this.money
             );
@@ -112,20 +112,21 @@
 </script>
 
 <style scoped>
-    .v-page-roulette {
-        font-family: Avenir, Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: white;
+    .v-game-wheel {
         background-color: green;
         border: #1df387 6px solid;
+        color: white;
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        text-align: center;
         user-select: none;
     }
 
     .block-body {
-        width: 100%;
         display: flex;
+        flex-direction: row;
+        justify-content: start;
         align-items: flex-start;
+
+        width: 100%;
     }
 </style>

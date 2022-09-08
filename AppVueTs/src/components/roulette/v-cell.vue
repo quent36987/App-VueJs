@@ -45,25 +45,28 @@
         --grid-row: "";
         --grid-col: "";
 
-        grid-column: var(--grid-col);
-        grid-row: var(--grid-row);
-        background-color: var(--bg-color);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
 
         min-height: 40px;
+
+        background-color: var(--bg-color);
         border: white 1px solid;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        grid-column: var(--grid-col);
+        grid-row: var(--grid-row);
     }
 
     .wheel-number {
-        background-color: cadetblue;
         width: 25px;
         height: 25px;
+        position: absolute;
+
+        background-color: cadetblue;
         border-radius: 10px;
         border: black 2px dashed;
         font-size: 15px;
-        position: absolute;
     }
 
     .v-cell.highlight {

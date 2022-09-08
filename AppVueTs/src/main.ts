@@ -1,6 +1,6 @@
-import App from "./App.vue";
+import App from "@/App.vue";
 import { declareComponents } from "@/components";
-import { router } from "./router";
+import { router } from "@/router";
 import { store } from "@/store";
 import Vue, { VNode } from "vue";
 

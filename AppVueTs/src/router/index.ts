@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
-const VPageRoulette = async () => import("@/pages/v-page-roulette.vue");
-const VPageHistory = async () => import("@/pages/v-page-history.vue");
-const VPageHome = async () => import("@/pages/v-page-home.vue");
-const VPageGame = async () => import("@/pages/v-page-game.vue");
+const VGameWheel = async () => import("@/pages/v-game-wheel.vue");
+const VGameHistory = async () => import("@/pages/v-game-history.vue");
+const VHome = async () => import("@/pages/v-home.vue");
+const VGame = async () => import("@/pages/v-game.vue");
 /* eslint-enable @typescript-eslint/explicit-function-return-type, @typescript-eslint/naming-convention */
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
@@ -11,12 +11,12 @@ Vue.use(VueRouter);
 
 const routesGame: RouteConfig[] = [
     {
-        component: VPageRoulette,
+        component: VGameWheel,
         name: "wheel-page",
-        path: "/play",
+        path: "/game",
     },
     {
-        component: VPageHistory,
+        component: VGameHistory,
         name: "rounds-history-page",
         path: "/history",
     },
@@ -24,15 +24,15 @@ const routesGame: RouteConfig[] = [
 
 const routes: RouteConfig[] = [
     {
-        component: VPageHome,
+        component: VHome,
         name: "home-page",
         path: "/",
     },
     {
         children: routesGame,
-        component: VPageGame,
+        component: VGame,
         name: "game-page",
-        path: "/play",
+        path: "/game",
     },
     { path: "*", redirect: "/" },
 ];

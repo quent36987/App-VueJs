@@ -1,5 +1,5 @@
 <template>
-    <div v-show="show" class="v-gain">
+    <div class="v-gain">
         {{ earning }}
     </div>
 </template>
@@ -11,12 +11,6 @@
     export default class extends Vue {
         @Prop({ required: true, type: Number })
         protected readonly gain!: number;
-
-        protected show = false;
-
-        protected mounted(): void {
-            this.show = true;
-        }
 
         protected get earning(): string {
             return `${this.gain > 0 ? "➕" : "➖"} ${Math.abs(this.gain)}`;
@@ -30,15 +24,17 @@
         transition: opacity 0.5s;
     }
 
-    .fade-enter, .fade-leave-to {
+    .fade-enter,
+    .fade-leave-to {
         opacity: 0;
     }
 
     .v-gain {
+        min-width: 45px;
+
         border: black 1px solid;
         padding: 5px;
         border-radius: 4px;
-        min-width: 45px;
         margin-left: 5px;
     }
 </style>

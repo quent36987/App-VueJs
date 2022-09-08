@@ -1,6 +1,6 @@
 import { Cell } from "@/models/cell";
-import { GRID_ROW } from "@/configs/constants";
 import { cellsConfig, redNumber } from "@/configs/cells-config";
+import { GRID_ROW, MAX_NUMBER_WHEEL } from "@/configs/constants";
 
 function addSpecialCells(cells: Cell[]): void {
     for (const cell of cellsConfig) {
@@ -20,15 +20,17 @@ function addSpecialCells(cells: Cell[]): void {
 
 function initCells(): Cell[] {
     const cells: Cell[] = [];
-    const FACTOR = 36;
+    const FACTOR = MAX_NUMBER_WHEEL;
 
-    for (let row = 1; row <= GRID_ROW; row += 1) {
-        for (let col = GRID_ROW + 1 - row; col <= FACTOR; col += GRID_ROW) {
-            const TITLE = col.toString();
-            const GD_ROW = row.toString();
-            const GD_COL = ((col + GRID_ROW) / GRID_ROW).toString();
-            const predicate = (value: number): boolean => value === col;
-            const COLOR = redNumber.includes(col) ? "red" : "black";
+    for (let row = 0; row < GRID_ROW; row += 1) {
+        for (let value = GRID_ROW - row; value <= FACTOR; value += GRID_ROW) {
+            const TITLE = value.toString();
+            const GD_ROW = (row + 1).toString();
+            const GD_COL = ((value + GRID_ROW) / GRID_ROW).toString();
+            const COLOR = redNumber.includes(value) ? "red" : "black";
+            const predicate = (wheelNumber: number): boolean => {
+                return wheelNumber === value;
+            };
 
             cells.push(
                 new Cell(TITLE, FACTOR, GD_COL, GD_ROW, COLOR, 0, predicate)

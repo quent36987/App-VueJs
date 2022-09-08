@@ -5,8 +5,8 @@
             :key="cell.id"
             :cell="cell"
             :highlight="cell.predicate(wheelNumber) && !isRunning"
-            @click="cell.incrementValue(tokenSelected)"
-            @click-right="cell.decrementValue(tokenSelected)"
+            @click="cell.incrementValue(selectedToken)"
+            @click-right="cell.decrementValue(selectedToken)"
         />
     </div>
 </template>
@@ -30,7 +30,7 @@
         @Prop({ required: true, type: Boolean })
         protected readonly isRunning!: boolean;
 
-        @State protected readonly tokenSelected!: number;
+        @State protected readonly selectedToken!: number;
         @State protected readonly wheelNumber!: number;
     }
 </script>
@@ -38,18 +38,17 @@
 <style scoped>
     .v-board {
         display: grid;
+        grid-template-columns: repeat(14, 1fr);
+
+        width: 100%;
+
         padding: 10px;
         margin: 50px 10px 10px;
-        flex: 3;
-        grid-template-columns: repeat(14, 1fr);
-        justify-items: stretch;
-        align-items: stretch;
-        justify-content: stretch;
-        align-content: center;
+
         color: white;
         background-color: green;
-        width: 100%;
         font-size: 20px;
         font-weight: bold;
+        flex: 3;
     }
 </style>

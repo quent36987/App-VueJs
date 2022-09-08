@@ -20,7 +20,7 @@ function searchMyInfo(
 // eslint-disable-next-line max-lines-per-function
 export function init(token: string): void {
     store.state.user = token;
-    navigate("/play");
+    navigate("/game");
     return;
 
     console.log("init");

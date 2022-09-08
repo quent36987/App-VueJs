@@ -7,13 +7,15 @@ const MIN_NUMBER_WHEEL = 0;
 const MAX_NUMBER_WHEEL = 36;
 
 const DELAY_HIDDEN_PLAY_BUTTON = 1800;
+const DELAY_DELETE_VALUE = 1500;
 const DELAY_RESULT = 500;
 
 const DISPLAYED_MESSAGE_COUNT = 6;
 
-const MONEY_INIT = 25;
+const MONEY_INIT = 250;
 
 /* eslint-disable @typescript-eslint/no-magic-numbers */
+// TODO: :O
 const tokenInit = [
     { id: 1, value: 1 },
     { id: 2, value: 5 },
@@ -23,6 +25,7 @@ const tokenInit = [
 /* eslint-enable @typescript-eslint/no-magic-numbers */
 
 export {
+    DELAY_DELETE_VALUE,
     DELAY_HIDDEN_PLAY_BUTTON,
     DELAY_RESULT,
     DISPLAYED_MESSAGE_COUNT,
