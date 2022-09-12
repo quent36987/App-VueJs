@@ -24,15 +24,16 @@
 
         protected get earning(): string {
             const PREFIX_GAIN = this.round.gain > 0 ? "➕" : "➖";
-            const GAIN_ABS = Math.abs(this.round.gain);
+            const GAIN_ABSOLUT = Math.abs(this.round.gain);
 
-            return `${PREFIX_GAIN} ${GAIN_ABS} (${this.round.money}$)`;
+            return `${PREFIX_GAIN} ${GAIN_ABSOLUT} (${this.round.money}$)`;
         }
 
         protected get backgroundColor(): string {
             if (this.round.wheelNumber === 0) {
                 return "green";
             }
+
             return redNumber.includes(this.round.wheelNumber) ? "red" : "black";
         }
 

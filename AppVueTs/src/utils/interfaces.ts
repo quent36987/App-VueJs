@@ -4,7 +4,7 @@ interface IDict<T = any> {
 }
 
 interface IListItem {
-    key: string | number;
+    id: string | number;
 }
 
 interface IToken {

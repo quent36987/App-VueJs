@@ -1,7 +1,6 @@
 <template>
     <div class="v-home">
         <div>let's all play together a LITTLE GAME</div>
-
         <input v-model="username" placeholder="username" />
         <button v-show="username !== ''" @click="login">Let's Go !</button>
     </div>

@@ -10,11 +10,10 @@
 
 <script lang="ts">
     import { PropType } from "vue";
-    import { VToken } from "@/components/roulette";
     import { Component, Prop, Vue } from "vue-property-decorator";
     import { IDict, IListItem } from "@/utils/interfaces";
 
-    @Component({ components: { "v-token": VToken } })
+    @Component
     export default class extends Vue {
         @Prop({ default: "", type: String })
         protected readonly alignItem!: string;

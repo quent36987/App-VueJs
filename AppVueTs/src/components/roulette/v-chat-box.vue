@@ -33,10 +33,12 @@
 
         protected addMessage(): void {
             sendMessage(this.message);
+
             store.commit(EMutation.AddMessage, {
                 message: this.message,
                 user: this.user,
             });
+
             this.message = "";
         }
     }

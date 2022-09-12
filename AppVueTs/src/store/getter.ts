@@ -4,6 +4,7 @@ const getters = {
     bets(state: IStoreType): IBet[] {
         return state.bets;
     },
+
     betsId:
         (state: IStoreType): ((id: number) => number) =>
         (id: number): number => {
@@ -14,16 +15,18 @@ const getters = {
     money(state: IStoreType): number {
         return state.money;
     },
+
     tokenSelected(state: IStoreType): number {
         return state.selectedToken;
     },
+
     totalBet(state: IStoreType): number {
-        let mise = 0;
-        for (const elt of state.bets) {
-            mise += elt.value;
+        let earning = 0;
+        for (const bet of state.bets) {
+            earning += bet.value;
         }
 
-        return mise;
+        return earning;
     },
 };
 

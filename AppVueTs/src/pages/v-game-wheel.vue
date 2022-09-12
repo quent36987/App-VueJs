@@ -19,7 +19,7 @@
     import { IBet } from "@/store/state";
     import { initCells } from "@/configs/board-utils";
     import { Round } from "@/models/round";
-    import { State } from "vuex-class";
+    import { Getter, State } from "vuex-class";
     import { Component, Vue } from "vue-property-decorator";
     import {
         DELAY_HIDDEN_PLAY_BUTTON,
@@ -52,6 +52,7 @@
         @State protected readonly bets!: IBet;
         @State protected readonly money!: number;
         @State protected readonly selectedToken!: number;
+        @Getter("totalBet") protected totalBet: number;
         @State protected readonly wheelNumber!: number;
 
         protected cells: Cell[] = [];
